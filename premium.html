@@ -1,0 +1,2924 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Prispodobilica — Premium QA · 144 scenarija</title>
+  <style>
+    :root{--page:#FDF6DC;--paper:#FFF9F2;--white:#FFF;--ink:#493A2A;--muted:#766855;--green:#5E6E44;--greenBright:#86B77B;--greenPale:#EAF0E4;--gold:#E0AB3C;--goldPale:#FCF0CE;--line:#DDD3C0;--warn:#B17937;--warnPale:#FBEDDA;--fail:#AE514C;--failPale:#FBEAE6;--blue:#587D94;--bluePale:#EAF0F4;--radius:18px;--shadow:0 6px 25px rgba(73,58,42,.065)}
+    *,*:before,*:after{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--page);color:var(--ink);font-family:Nunito,"Segoe UI",system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.5}button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}a{color:var(--green)}:focus-visible{outline:3px solid #A7B669;outline-offset:2px}
+    .top{position:sticky;z-index:30;top:0;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 22px;background:rgba(253,246,220,.98);border-bottom:1px solid var(--line);box-shadow:0 2px 10px #493A2A0C}.brand{display:flex;gap:11px;align-items:center}.logo{width:43px;height:43px;background:var(--gold);border-radius:13px;display:grid;place-items:center;color:white;font-size:23px}.brand h1{font-size:18px;line-height:1.2;margin:0;font-weight:850}.brand small{color:var(--muted);display:block}.topright{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.save{font-size:12px;color:var(--green)}.chip{background:var(--paper);color:var(--muted);padding:5px 9px;border:1px solid var(--line);border-radius:100px;font-size:12px;font-weight:650}.layout{display:grid;grid-template-columns:320px minmax(0,1fr);max-width:1480px;margin:auto;min-height:calc(100vh - 80px)}
+    .sidebar{background:#FAF1DC;border-right:1px solid var(--line);padding:19px 13px 40px;position:sticky;top:72px;height:calc(100vh - 72px);overflow:auto}.sidebar h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:4px 8px 14px}.filters{display:grid;gap:8px;margin:0 4px 13px}.field,select{width:100%;border:1px solid #D5CDBE;border-radius:12px;background:#FFFDF9;padding:10px 12px;color:var(--ink);outline:0}.search{width:100%}.testlist{display:grid;gap:3px}.s-group{margin:12px 4px 5px;font-size:11px;text-transform:uppercase;letter-spacing:.075em;color:var(--muted);font-weight:800}.test-link{display:flex;gap:8px;align-items:center;text-align:left;width:100%;padding:9px 10px;border:1px solid transparent;border-radius:11px;color:var(--ink);background:transparent;font-size:12px;line-height:1.38}.test-link:hover{background:#FFFDF8}.test-link.current{background:var(--paper);border-color:#D8CBAE;box-shadow:0 3px 12px #4A362312}.test-code{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:30px}.tiny-dot{display:inline-block;width:9px;height:9px;min-width:9px;border-radius:50%;background:#D0C8B6}.tiny-dot.PASS{background:#6E9D66}.tiny-dot.PARTIAL{background:#DCAC50}.tiny-dot.FAIL{background:#C46D64}.tiny-dot.NOT_RUN{background:#D0C8B6}.tiny-dot.BLOCKED{background:#84919C}
+    .main{padding:25px clamp(16px,3.2vw,44px) 110px;min-width:0}.main-inner{max-width:960px;margin:auto}.eyebrow{font-size:11px;font-weight:850;letter-spacing:.11em;color:#8C795E;text-transform:uppercase}.h-main{margin:4px 0 7px;font-size:clamp(25px,3.4vw,35px);line-height:1.18;color:#493A2A}.lead{color:var(--muted);margin:0 0 18px}.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:16px 0}.stat{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:15px 10px;text-align:center}.stat strong{display:block;font-size:26px;line-height:1.2}.stat span{font-size:11px;color:var(--muted);font-weight:650}.stat.passed strong{color:#50764A}.stat.partial strong{color:var(--warn)}.stat.failed strong{color:var(--fail)}.stat.unrun strong{color:#827766}.stat.blocked strong{color:var(--blue)}.progress-wrap{background:#DDDCC8;border-radius:999px;height:9px;overflow:hidden;margin:11px 0 4px;display:flex}.p-pass{background:#75A46D}.p-partial{background:#DCA951}.p-fail{background:#BC6960}.p-blocked{background:#8094A4}
+    .card{border-radius:var(--radius);padding:21px;background:var(--paper);border:1px solid #E5D8BC;box-shadow:var(--shadow);margin:15px 0}.card.white{background:#fff}.card.soft{background:#FBF0D5}.card h3{margin:0 0 11px;font-size:19px}.card h4{margin:0 0 8px;font-size:16px}.section-heading{display:flex;gap:11px;align-items:center;margin-bottom:13px}.section-heading h3{margin:0;font-size:18px}.section-icon{border-radius:13px;display:grid;place-items:center;width:42px;height:42px;flex-shrink:0;background:var(--gold);color:white;font-size:21px}.section-icon.green{background:#85AF79}.section-icon.brown{background:#E8DAC4;color:#6E5639}.dim{color:var(--muted)}.muted{color:var(--muted);font-size:12px}.little{font-size:12px}.subtle{background:#F4EAD5;border:1px solid #E7D5B6;border-radius:11px;padding:10px 12px;color:#6B5A45}.tip{display:flex;align-items:start;gap:8px;font-size:12px;color:#6F654B;margin-top:12px}.tip:before{content:'ⓘ';color:#758D58;font-size:16px}
+    .test-head{display:flex;justify-content:space-between;gap:14px;align-items:start}.test-head h2{font-size:clamp(24px,3vw,31px);line-height:1.2;margin:5px 0;color:var(--ink)}.tag{display:inline-flex;align-items:center;border-radius:100px;padding:6px 11px;font-size:11px;font-weight:800;background:#E8E4D9;color:#6B6256;white-space:nowrap}.tag.PASS{background:#E0EFDE;color:#476A42}.tag.PARTIAL{background:#F7E8CB;color:#946428}.tag.FAIL{background:#F9E0DC;color:#9D4843}.tag.BLOCKED{background:#E6EDF3;color:#4B6979}.tag.QA{background:#E1EEDC;color:#477345}.tag.OGRANIČENO{background:#FFF0CD;color:#94672A}.tag.KASNIJE{background:#E9EDF1;color:#627181}.test-navigation{display:flex;align-items:center;gap:9px;margin:15px 0}.btn{padding:10px 15px;border-radius:12px;border:1px solid #CFC2A9;background:#FFFDF7;color:var(--ink);font-weight:740;transition:background .15s,transform .1s}.btn:hover{background:#F8EAD0}.btn:active{transform:scale(.992)}.btn.primary{background:#769B65;border-color:#658657;color:white}.btn.primary:hover{background:#608755}.btn.gold{background:#E3B34F;border-color:#CD9C39;color:#493821}.btn.ghost{border-color:transparent;background:transparent}.btn.small{padding:7px 11px;font-size:12px}.btn.block{width:100%}.btn.danger{border-color:#CDAAA3;color:#A04C45}.btn.outline{background:white}.test-nav-spacer{flex:1}
+    table{border-collapse:collapse;width:100%;font-size:13px}td{border-bottom:1px solid #E7DECC;padding:10px 8px;vertical-align:top}td:first-child{width:43%;color:#74634F}td:last-child{font-weight:750}tr:last-child td{border-bottom:0}.steps{counter-reset:action;display:grid;gap:9px;list-style:none;margin:0;padding:0}.steps li{display:flex;align-items:start;gap:10px}.steps li:before{counter-increment:action;content:counter(action);color:#FFF;background:#819D73;border-radius:8px;display:grid;place-items:center;min-width:25px;height:25px;font-weight:750;font-size:12px;margin-top:0}
+    .dialog-preview{max-width:600px;margin:12px auto;background:white;border-radius:19px;padding:23px 23px 18px;border:1px solid #E2D7C6;box-shadow:0 7px 25px #4A362320}.dialog-preview h4{font-size:20px;margin:0 0 12px}.dialog-preview p{margin:0 0 21px;color:#65584A}.mock-actions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:9px}.mock-action{padding:9px 13px;border-radius:10px;font-weight:750;color:#5E8B51}.mock-action.filled{background:#85AF79;color:#fff}.mock-checkbox{font-size:12px;color:#6B5D4C;margin:0 0 14px}.preview-ui{background:#FFF9F2;border-radius:16px;padding:17px;border:1px solid #E6DAC7}.preview-ui h4{margin:0 0 9px}.hero-row{display:flex;gap:11px;align-items:start}.premium-icon{border-radius:12px;background:#E5AF39;color:white;padding:11px;line-height:1;font-size:22px}.smallline{color:#786857;font-size:12px}.preview-btn{display:block;background:#82A973;color:#fff;font-weight:750;padding:12px 15px;border-radius:10px;text-align:center;margin-top:14px}.mini-card{border:1px solid #E3D9C8;border-radius:13px;background:#fff;padding:13px;margin:8px 0}.mini-card.selected{background:#83AA76;color:white;border-color:#628F5B}.mini-card.owned{border-color:#D6A437;background:#FAF0D7}.mini-card h5{font-size:14px;margin:0}.mini-card small{font-size:12px;display:block;margin-top:4px}.mini-card .mini-badge{color:#805924;font-weight:700;font-size:11px}.ui-gap{height:10px}.sep{border:0;border-top:1px solid #E5D8C7;margin:15px 0}
+    .checks{display:grid;gap:12px}.check-row{display:flex;align-items:start;gap:12px;font-size:14px;line-height:1.45;color:#4B3C2A;cursor:pointer}.check-row input{accent-color:#729764;width:19px;height:19px;margin:2px 0 0;flex-shrink:0}.completion{background:#EDF3E7;border-radius:11px;padding:12px;margin-top:14px}.bar-bg{height:7px;background:#D7E2CF;border-radius:99px;overflow:hidden;margin-top:8px}.bar-progress{height:100%;background:#78A16D;border-radius:99px}.status-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:14px 0}.status-button{border:1px solid #D3CBBE;background:#FFF;border-radius:12px;padding:12px 7px;color:#6D6255;font-weight:760}.status-button.active{border-width:2px}.status-button.active.PASS{background:#DFF0DC;border-color:#6A9D60;color:#3F7240}.status-button.active.PARTIAL{background:#F9E9C9;border-color:#DAA44B;color:#925D21}.status-button.active.FAIL{background:#F9E0DD;border-color:#C5746A;color:#994840}.status-button.active.NOT_RUN{background:#ECE8DE;border-color:#A19888;color:#655F54}.status-button span{display:block;font-size:20px;line-height:1.3}.note{min-height:110px;width:100%;background:#FFFDF8;border:1px solid #D9D0C1;border-radius:12px;padding:13px;resize:vertical;color:var(--ink)}label.meta-label{display:block;font-size:12px;font-weight:740;color:#71624F;margin:12px 0 6px}
+    .groups-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.group-card{border-radius:15px;border:1px solid #E3D4B8;background:var(--paper);text-align:left;padding:16px;display:block}.group-card strong{font-size:18px;margin-right:8px}.group-card:hover{background:#fff}.group-card span{font-size:12px;color:var(--muted)}.group-card small{display:block;color:var(--green);margin-top:8px}.tools-row{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}.section-note{margin-top:12px;background:var(--bluePale);border-radius:10px;color:#526A79;padding:11px;font-size:12px}.alert{border-radius:11px;padding:13px;background:var(--warnPale);color:#785A31;border:1px solid #EAD7AF;margin:10px 0;font-size:13px}.alert.error{background:var(--failPale);color:#8B4840;border-color:#EDC6BF}.alert.success{background:var(--greenPale);color:#4A6B44;border-color:#D7E2CB}.toast{position:fixed;z-index:90;bottom:22px;right:22px;background:#425B3E;color:#fff;padding:11px 17px;border-radius:13px;box-shadow:0 6px 30px #0003;max-width:330px;display:none}.toast.show{display:block}.hidden{display:none!important}.bunch{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.no-results{padding:15px;color:var(--muted);font-size:13px}.save-status{display:flex;align-items:center;gap:5px}.save-status:before{content:'●';color:#68A46B}.footer-note{margin:25px 0;font-size:12px;color:var(--muted)}
+    @media(max-width:1150px){.stats{grid-template-columns:repeat(3,1fr)}.status-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:13px;max-height:360px;overflow:auto}.top{padding:10px 15px}.main{padding:18px 14px 80px}.groups-grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(3,1fr)}.brand h1{font-size:15px}.brand small{font-size:10px}.save-status{display:none}}
+    @media(max-width:500px){.stats{grid-template-columns:repeat(2,1fr)}.groups-grid{grid-template-columns:1fr}.card{padding:15px}.status-grid{grid-template-columns:repeat(2,1fr)}td:first-child{width:43%}.topright .chip{display:none}.test-head{flex-wrap:wrap}.test-head h2{font-size:23px}}
+    @media print{.top,.sidebar,.test-navigation,.status-grid,.tools-row,.btn,.toast{display:none!important}.layout{display:block}.main{padding:0}.card{box-shadow:none;break-inside:avoid}body{background:#fff;color:#222}}
+  </style>
+</head>
+<body>
+<script id="qa-data" type="application/json">{
+  "groups": {
+    "A": [
+      "Osnovni Premium statusi",
+      19
+    ],
+    "B": [
+      "Planovi i promjene pretplate",
+      18
+    ],
+    "C": [
+      "Probno razdoblje",
+      9
+    ],
+    "D": [
+      "Naplata, odgoda i oporavak",
+      23
+    ],
+    "E": [
+      "Offline provjera i rokovi",
+      19
+    ],
+    "F": [
+      "Priče, uspavanke i zvukovi",
+      14
+    ],
+    "G": [
+      "Prikazi u Postavkama i Premiumu",
+      17
+    ],
+    "H": [
+      "Roditeljska zaštita",
+      17
+    ],
+    "I": [
+      "Trajnost, reset i rubni slučajevi",
+      8
+    ]
+  },
+  "presets": {
+    "disabled": {
+      "on": false,
+      "plan": "Besplatni korisnik",
+      "status": "Aktivna",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "disabled"
+    },
+    "free": {
+      "on": true,
+      "plan": "Besplatni korisnik",
+      "status": "Aktivna",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "free"
+    },
+    "monthly": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "activeM"
+    },
+    "quarterly": {
+      "on": true,
+      "plan": "Premium — tromjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "activeQ"
+    },
+    "yearly": {
+      "on": true,
+      "plan": "Premium — godišnja pretplata",
+      "status": "Aktivna",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "activeY"
+    },
+    "expired": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Istekla",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "expired"
+    },
+    "expiredDate": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Trgovina dostupna",
+      "expiry": "Jučerašnji datum (odaberi u kalendaru)",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "expired"
+    },
+    "pending": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Kupnja u obradi",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "pending"
+    },
+    "hold": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Problem s naplatom",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "hold"
+    },
+    "revoked": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Kupnja opozvana ili refundirana",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "revoked"
+    },
+    "unavailable": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Trgovina nedostupna",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "unavailable"
+    },
+    "manualgrace": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Razdoblje odgode plaćanja",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "graceManual"
+    },
+    "invalidtrial": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Probno razdoblje",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "invalid"
+    },
+    "invalidcancel": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Otkazana, vrijedi do kraja razdoblja",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "invalid"
+    },
+    "cancelFuture": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Trgovina dostupna",
+      "expiry": "Sutrašnji datum (odaberi u kalendaru)",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "cancelFuture"
+    },
+    "offlineFresh": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "UKLJUČENO",
+      "hour": "Ne pritiskati čip 119/120/121 h",
+      "state": "offlineValid"
+    },
+    "offline119": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "UKLJUČENO",
+      "hour": "119 h",
+      "state": "offlineNear"
+    },
+    "offline120": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "UKLJUČENO",
+      "hour": "120 h",
+      "state": "offlineBoundary"
+    },
+    "offline121": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "UKLJUČENO",
+      "hour": "121 h",
+      "state": "offlineLost"
+    },
+    "graceIncident": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "graceIncident"
+    },
+    "lossIncident": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "lossIncident"
+    },
+    "recovered": {
+      "on": true,
+      "plan": "Premium — mjesečna pretplata",
+      "status": "Aktivna",
+      "store": "Trgovina dostupna",
+      "expiry": "Nije postavljen",
+      "offline": "ISKLJUČENO",
+      "hour": "—",
+      "state": "activeM"
+    }
+  },
+  "states": {
+    "disabled": {
+      "plan": "Besplatni korisnik",
+      "reason": "Nije aktivna",
+      "desc": "Otključaj sve priče, uspavanke i pozadinske zvukove.",
+      "button": "Pogledaj Premium",
+      "page": "Otključaj sve priče",
+      "pageDesc": "Slušaj priče, uspavanke i pozadinske zvukove bez ograničenja.",
+      "kind": "offer",
+      "popup": "none"
+    },
+    "free": {
+      "plan": "Besplatni korisnik",
+      "reason": "Nije aktivna",
+      "desc": "Otključaj sve priče, uspavanke i pozadinske zvukove.",
+      "button": "Pogledaj Premium",
+      "page": "Otključaj sve priče",
+      "pageDesc": "Slušaj priče, uspavanke i pozadinske zvukove bez ograničenja.",
+      "kind": "offer",
+      "popup": "none"
+    },
+    "activeM": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Aktivna",
+      "desc": "Premium sadržaj već je uključen i dostupan.",
+      "button": "Pogledaj detalje",
+      "page": "Premium je uključen",
+      "pageDesc": "Sve Premium pogodnosti već su dostupne.",
+      "kind": "entitled",
+      "popup": "none"
+    },
+    "activeQ": {
+      "plan": "Premium — tromjesečna pretplata",
+      "reason": "Aktivna",
+      "desc": "Premium sadržaj već je uključen i dostupan.",
+      "button": "Pogledaj detalje",
+      "page": "Premium je uključen",
+      "pageDesc": "Sve Premium pogodnosti već su dostupne.",
+      "kind": "entitled",
+      "popup": "none"
+    },
+    "activeY": {
+      "plan": "Premium — godišnja pretplata",
+      "reason": "Aktivna",
+      "desc": "Premium sadržaj već je uključen i dostupan.",
+      "button": "Pogledaj detalje",
+      "page": "Premium je uključen",
+      "pageDesc": "Sve Premium pogodnosti već su dostupne.",
+      "kind": "entitled",
+      "popup": "none"
+    },
+    "expired": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Istekla",
+      "desc": "Premium pretplata je istekla.",
+      "button": "Pogledaj Premium",
+      "page": "Prethodna Premium pretplata je završila",
+      "pageDesc": "Tvoja prethodna Premium pretplata više nije aktivna. Odaberi plan za nastavak.",
+      "kind": "offer",
+      "popup": "expired",
+      "warning": "Premium pretplata je završila"
+    },
+    "pending": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Kupnja u obradi",
+      "desc": "Kupnja se obrađuje. Premium će biti dostupan nakon potvrde.",
+      "button": "Prikaži status",
+      "page": "Premium kupnja se obrađuje",
+      "pageDesc": "Premium će biti dostupan nakon pouzdane potvrde kupnje.",
+      "kind": "pending",
+      "popup": "pending",
+      "warning": "Kupnja u obradi"
+    },
+    "hold": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Problem s naplatom",
+      "desc": "Potrebna je provjera Premium prava.",
+      "button": "Provjeri Premium",
+      "page": "Potrebna je provjera Premiuma",
+      "pageDesc": "Kupnja nije označena kao istekla dok provjera nije dovršena.",
+      "kind": "verification",
+      "popup": "hold",
+      "warning": "Problem s naplatom"
+    },
+    "revoked": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Kupnja opozvana ili refundirana",
+      "desc": "Premium kupnja je opozvana ili refundirana.",
+      "button": "Pogledaj Premium",
+      "page": "Otključaj sve priče",
+      "pageDesc": "Slušaj priče, uspavanke i pozadinske zvukove bez ograničenja.",
+      "kind": "offer",
+      "popup": "revoked",
+      "warning": "Premium kupnja je opozvana"
+    },
+    "unavailable": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Trgovina nedostupna",
+      "desc": "Potrebna je provjera Premium prava.",
+      "button": "Provjeri Premium",
+      "page": "Potrebna je provjera Premiuma",
+      "pageDesc": "Kupnja nije označena kao istekla dok provjera nije dovršena.",
+      "kind": "verification",
+      "popup": "unavailable",
+      "warning": "Potrebna je provjera Premiuma"
+    },
+    "graceManual": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Razdoblje odgode plaćanja",
+      "desc": "Premium sadržaj već je uključen i dostupan.",
+      "button": "Pogledaj detalje",
+      "page": "Premium je uključen",
+      "pageDesc": "Sve Premium pogodnosti već su dostupne.",
+      "kind": "entitled",
+      "popup": "none"
+    },
+    "graceIncident": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Razdoblje odgode plaćanja",
+      "desc": "Premium sadržaj već je uključen i dostupan.",
+      "button": "Pogledaj detalje",
+      "page": "Premium je uključen",
+      "pageDesc": "Sve Premium pogodnosti već su dostupne.",
+      "kind": "entitled",
+      "popup": "graceIncident",
+      "warning": "Plaćanje pretplate nije uspjelo"
+    },
+    "lossIncident": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Problem s naplatom",
+      "desc": "Potrebna je provjera Premium prava.",
+      "button": "Provjeri Premium",
+      "page": "Potrebna je provjera Premiuma",
+      "pageDesc": "Kupnja nije označena kao istekla dok provjera nije dovršena.",
+      "kind": "verification",
+      "popup": "lossIncident",
+      "warning": "Premium više nije dostupan"
+    },
+    "invalid": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Nevaljano QA stanje",
+      "desc": "Potrebna je provjera Premium prava.",
+      "button": "Provjeri Premium",
+      "page": "Potrebna je provjera Premiuma",
+      "pageDesc": "Kupnja nije označena kao istekla dok provjera nije dovršena.",
+      "kind": "verification",
+      "popup": "none"
+    },
+    "cancelFuture": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Otkazana, vrijedi do kraja razdoblja",
+      "desc": "Premium sadržaj već je uključen i dostupan.",
+      "button": "Pogledaj detalje",
+      "page": "Premium je uključen",
+      "pageDesc": "Sve Premium pogodnosti već su dostupne.",
+      "kind": "entitled",
+      "popup": "none"
+    },
+    "offlineValid": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Offline pristup unutar dopuštenih 120 h",
+      "desc": "Premium sadržaj već je uključen i dostupan.",
+      "button": "Pogledaj detalje",
+      "page": "Premium je uključen",
+      "pageDesc": "Sve Premium pogodnosti već su dostupne.",
+      "kind": "entitled",
+      "popup": "none"
+    },
+    "offlineNear": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Offline pristup unutar dopuštenih 120 h",
+      "desc": "Premium sadržaj već je uključen i dostupan.",
+      "button": "Pogledaj detalje",
+      "page": "Premium je uključen",
+      "pageDesc": "Sve Premium pogodnosti već su dostupne.",
+      "kind": "entitled",
+      "popup": "offlineNear",
+      "warning": "Premium uskoro treba provjeru"
+    },
+    "offlineLost": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Prošlo 120 h, potrebna nova provjera",
+      "desc": "Potrebna je provjera Premium prava.",
+      "button": "Provjeri Premium",
+      "page": "Potrebna je provjera Premiuma",
+      "pageDesc": "Kupnja nije označena kao istekla dok provjera nije dovršena.",
+      "kind": "verification",
+      "popup": "offlineLost",
+      "warning": "Potrebna je provjera Premiuma"
+    },
+    "offlineBoundary": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Ovisi o točnom proteklom vremenu",
+      "desc": "Na granici može brzo prijeći iz aktivnog prava u provjeru.",
+      "button": "Pogledaj detalje / Provjeri Premium",
+      "page": "Premium je uključen / Potrebna je provjera Premiuma",
+      "pageDesc": "Provjeriti odmah nakon pritiska; čip 120 h ne daje stabilnu provjeru točno 120:00:00.",
+      "kind": "boundary",
+      "popup": "none"
+    },
+    "trialY": {
+      "plan": "Premium — godišnja pretplata",
+      "reason": "Probno razdoblje",
+      "desc": "Premium sadržaj već je uključen i dostupan.",
+      "button": "Pogledaj detalje",
+      "page": "Premium je uključen",
+      "pageDesc": "Sve Premium pogodnosti već su dostupne.",
+      "kind": "entitled",
+      "popup": "none"
+    },
+    "trialM": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Probno razdoblje",
+      "desc": "Premium sadržaj već je uključen i dostupan.",
+      "button": "Pogledaj detalje",
+      "page": "Premium je uključen",
+      "pageDesc": "Sve Premium pogodnosti već su dostupne.",
+      "kind": "entitled",
+      "popup": "none"
+    },
+    "trialQ": {
+      "plan": "Premium — tromjesečna pretplata",
+      "reason": "Probno razdoblje",
+      "desc": "Premium sadržaj već je uključen i dostupan.",
+      "button": "Pogledaj detalje",
+      "page": "Premium je uključen",
+      "pageDesc": "Sve Premium pogodnosti već su dostupne.",
+      "kind": "entitled",
+      "popup": "none"
+    },
+    "pendingY": {
+      "plan": "Premium — godišnja pretplata",
+      "reason": "Kupnja u obradi",
+      "desc": "Kupnja se obrađuje. Premium će biti dostupan nakon potvrde.",
+      "button": "Prikaži status",
+      "page": "Premium kupnja se obrađuje",
+      "pageDesc": "Premium će biti dostupan nakon pouzdane potvrde kupnje.",
+      "kind": "pending",
+      "popup": "pending",
+      "warning": "Kupnja u obradi"
+    },
+    "graceTrialY": {
+      "plan": "Premium — godišnja pretplata",
+      "reason": "Razdoblje odgode plaćanja",
+      "desc": "Premium sadržaj već je uključen i dostupan.",
+      "button": "Pogledaj detalje",
+      "page": "Premium je uključen",
+      "pageDesc": "Sve Premium pogodnosti već su dostupne.",
+      "kind": "entitled",
+      "popup": "graceIncident",
+      "warning": "Plaćanje pretplate nije uspjelo"
+    },
+    "offlineNearUnavailable": {
+      "plan": "Premium — mjesečna pretplata",
+      "reason": "Offline pristup unutar dopuštenih 120 h",
+      "desc": "Premium sadržaj već je uključen i dostupan.",
+      "button": "Pogledaj detalje",
+      "page": "Premium je uključen",
+      "pageDesc": "Sve Premium pogodnosti već su dostupne.",
+      "kind": "entitled",
+      "popup": "offlineNear",
+      "warning": "Potrebna je provjera Premiuma"
+    },
+    "expiredY": {
+      "plan": "Premium — godišnja pretplata",
+      "reason": "Istekla",
+      "desc": "Premium pretplata je istekla.",
+      "button": "Pogledaj Premium",
+      "page": "Prethodna Premium pretplata je završila",
+      "pageDesc": "Tvoja prethodna Premium pretplata više nije aktivna. Odaberi plan za nastavak.",
+      "kind": "offer",
+      "popup": "expired",
+      "warning": "Premium pretplata je završila"
+    }
+  },
+  "popups": {
+    "none": {
+      "title": "Nema Premium skočnog prozora",
+      "body": "Za ovu konfiguraciju nije predviđen novi Premium skočni prozor.",
+      "buttons": [],
+      "when": "Nijedan novi prozor ne treba se pojaviti pri ovom koraku."
+    },
+    "expired": {
+      "title": "Premium pretplata je završila",
+      "body": "Premium sadržaj više nije dostupan prema potvrđenom statusu kupnje.",
+      "buttons": [
+        "Nastavi bez Premiuma"
+      ],
+      "when": "Nakon promjene na potvrđeni istek, ako upozorenje još nije prikazano u tekućoj sesiji i ne svira priča."
+    },
+    "revoked": {
+      "title": "Premium kupnja je opozvana",
+      "body": "Premium sadržaj više nije dostupan prema potvrđenom statusu kupnje.",
+      "buttons": [
+        "Nastavi bez Premiuma"
+      ],
+      "when": "Nakon promjene stanja na opoziv kupnje, ako upozorenje nije ranije prikazano i audio ne svira."
+    },
+    "pending": {
+      "title": "Kupnja u obradi",
+      "body": "Kupnja Premiuma čeka potvrdu trgovine. Premium će ostati zaključan dok potvrda ne bude dostupna.",
+      "buttons": [
+        "Nastavi bez Premiuma"
+      ],
+      "when": "Pri ulasku u stanje kupnje na čekanju, kada aplikacija obradi upozorenje i ne svira priča."
+    },
+    "hold": {
+      "title": "Potrebna je provjera Premiuma",
+      "body": "Trgovina je prijavila problem s naplatom. Premium nije dostupan dok se plaćanje ne riješi.",
+      "buttons": [
+        "Nastavi bez Premiuma"
+      ],
+      "when": "Pri ručnom postavljanju stanja „Problem s naplatom”, bez simuliranog incidenta."
+    },
+    "unavailable": {
+      "title": "Potrebna je provjera Premiuma",
+      "body": "Provjera trenutačno nije dostupna. Pokušaj ponovno kada veza ili trgovina budu dostupni.",
+      "buttons": [
+        "Nastavi bez Premiuma"
+      ],
+      "when": "Kada stanje trgovine postane „Trgovina nedostupna”."
+    },
+    "offlineNear": {
+      "title": "Premium uskoro treba provjeru",
+      "body": "Za nastavak korištenja Premium sadržaja uskoro će biti potrebna internetska provjera kupnje.",
+      "buttons": [
+        "Zanemari",
+        "Provjeri sada"
+      ],
+      "when": "Nakon postavljanja 119 h offline; upozorenje ne smije prekidati aktivnu priču."
+    },
+    "offlineLost": {
+      "title": "Potrebna je provjera Premiuma",
+      "body": "Trenutačno ne možemo potvrditi tvoju Premium kupnju. Poveži uređaj s internetom kako bi ponovno mogao pokretati Premium sadržaj.",
+      "buttons": [
+        "Nastavi bez Premiuma",
+        "Provjeri pretplatu"
+      ],
+      "when": "Nakon postavljanja 121 h offline, ako upozorenje još nije prikazano u sesiji."
+    },
+    "graceIncident": {
+      "title": "Plaćanje pretplate nije uspjelo",
+      "body": "Plaćanje vaše Premium pretplate nije uspjelo. Premium je zasad i dalje dostupan. Provjerite način plaćanja kako biste nastavili koristiti Premium bez prekida.",
+      "buttons": [
+        "Kasnije",
+        "Riješi plaćanje"
+      ],
+      "when": "Nakon pritiska „Neuspjela obnova” ili „Neuspjela prva naplata”, kada audio priča ne svira.",
+      "checkbox": "Ne prikazuj više"
+    },
+    "lossIncident": {
+      "title": "Premium više nije dostupan",
+      "body": "Plaćanje vaše pretplate nije uspjelo, a razdoblje odgode plaćanja je završilo. Premium sadržaj trenutačno nije dostupan. Provjerite način plaćanja kako biste ponovno aktivirali Premium. Besplatne priče i uspavanke i dalje su vam dostupne.",
+      "buttons": [
+        "Kasnije",
+        "Riješi plaćanje"
+      ],
+      "when": "Nakon pritiska „Istek odgode plaćanja” u otvorenom incidentu neuspjele naplate.",
+      "checkbox": "Ne prikazuj više"
+    },
+    "recovery": {
+      "title": "Nema novog skočnog prozora",
+      "body": "Očekuje se jednokratna poruka pri dnu: „Premium je ponovno aktivan.”, trajanje približno 10 sekundi, mali × za zatvaranje.",
+      "buttons": [],
+      "when": "Odmah nakon „Oporavi naplatu” ili po povratku aplikacije u prvi plan."
+    },
+    "lockedAudio": {
+      "title": "Premium sadržaj nije dostupan",
+      "body": "Odabrana uspavanka ili pozadinski zvuk zahtijeva Premium. Odaberi besplatne zvukove ili aktiviraj Premium.",
+      "buttons": [
+        "Odustani",
+        "Pretplati se"
+      ],
+      "when": "Pri pritisku Play s jednim ili više zaključanih Premium audio slojeva."
+    }
+  },
+  "tests": [
+    {
+      "id": "A01",
+      "group": "A",
+      "title": "Simulacija potpuno isključena",
+      "preset": "disabled",
+      "steps": [],
+      "expect": "Besplatan sadržaj radi; Stvaranje svijeta, Dječak Juraj, Klanjam ti se i Kiša nemaju pravo na puni Premium audio.",
+      "scope": "QA",
+      "state": "disabled",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A02",
+      "group": "A",
+      "title": "Uključena simulacija, besplatni korisnik",
+      "preset": "free",
+      "steps": [],
+      "expect": "Uključivanje same simulacije ne izdaje Premium pravo.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A03",
+      "group": "A",
+      "title": "Aktivna mjesečna pretplata",
+      "preset": "monthly",
+      "steps": [],
+      "expect": "Sve QA Premium priče i dva odabrana Premium audio sloja imaju pristup; mjesečna je posjedovani plan.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A04",
+      "group": "A",
+      "title": "Aktivna tromjesečna pretplata",
+      "preset": "quarterly",
+      "steps": [],
+      "expect": "Tromjesečna mora biti posjedovani plan i svi QA Premium izvori dostupni.",
+      "scope": "QA",
+      "state": "activeQ",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A05",
+      "group": "A",
+      "title": "Aktivna godišnja pretplata",
+      "preset": "yearly",
+      "steps": [],
+      "expect": "Godišnja mora biti posjedovani plan; nema prodajnog naslova „Otključaj sve priče”.",
+      "scope": "QA",
+      "state": "activeY",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A06",
+      "group": "A",
+      "title": "Promjena QA plana s mjesečnog na godišnji",
+      "preset": "monthly",
+      "steps": [
+        "U polju „Vrsta pristupa” odaberi „Premium — godišnja pretplata”.",
+        "Vrati se na glavnu Premium karticu i ponovno otvori Premium ekran."
+      ],
+      "expect": "Oba ekrana moraju odmah prikazati godišnju; promjena QA izbornika nije stvarna naplata.",
+      "scope": "QA",
+      "state": "activeY",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A07",
+      "group": "A",
+      "title": "Potvrđen istek samo statusom",
+      "preset": "expired",
+      "steps": [],
+      "expect": "Premium reprodukcija blokirana; istek nije običan status nove ponude.",
+      "scope": "QA",
+      "state": "expired",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A08",
+      "group": "A",
+      "title": "Istek zbog prošlog testnog datuma",
+      "preset": "expiredDate",
+      "steps": [],
+      "expect": "Iako u polju Status piše „Aktivna”, efektivno pravo mora biti isteklo.",
+      "scope": "QA",
+      "state": "expired",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A09",
+      "group": "A",
+      "title": "Istek po statusu i prošlom datumu",
+      "preset": "expired",
+      "steps": [
+        "U polju „Testni datum isteka” odaberi jučerašnji datum."
+      ],
+      "expect": "Istek se prikazuje jednoznačno, bez privremenog Premium pristupa.",
+      "scope": "QA",
+      "state": "expired",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A10",
+      "group": "A",
+      "title": "Opozvana ili refundirana kupnja",
+      "preset": "revoked",
+      "steps": [],
+      "expect": "Bez Premium prava; ispravno razlikovati opoziv od isteka ili potrebe za internetom.",
+      "scope": "QA",
+      "state": "revoked",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A11",
+      "group": "A",
+      "title": "Kupnja u obradi",
+      "preset": "pending",
+      "steps": [],
+      "expect": "Premium još nije dostupan; nije dopušten novi lažni checkout iste transakcije.",
+      "scope": "QA",
+      "state": "pending",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A12",
+      "group": "A",
+      "title": "Ručni problem s naplatom",
+      "preset": "hold",
+      "steps": [],
+      "expect": "Premium je zaključan; poruke navode problem naplate, a ne nedostupan internet.",
+      "scope": "QA",
+      "state": "hold",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A13",
+      "group": "A",
+      "title": "Trgovina nedostupna",
+      "preset": "unavailable",
+      "steps": [],
+      "expect": "Bez nove potvrde Premium je u stanju provjere; nije označen kao potvrđeno istekao.",
+      "scope": "QA",
+      "state": "unavailable",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A14",
+      "group": "A",
+      "title": "Ručna odgoda plaćanja bez incidenta",
+      "preset": "manualgrace",
+      "steps": [],
+      "expect": "QA store grace daje pravo u simulaciji, ali nije isto što i incident tipke „Neuspjela obnova”; nema incidentnog popup-a.",
+      "scope": "QA",
+      "state": "graceManual",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A15",
+      "group": "A",
+      "title": "Offline 119 sati",
+      "preset": "offline119",
+      "steps": [],
+      "expect": "Premium je još dostupan i očekuje se upozorenje na skoru provjeru.",
+      "scope": "QA",
+      "state": "offlineNear",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A16",
+      "group": "A",
+      "title": "Offline 121 sat",
+      "preset": "offline121",
+      "steps": [],
+      "expect": "Premium se zaključava zbog potrebe za novom provjerom, ne zato što je pretplata dokazano istekla.",
+      "scope": "QA",
+      "state": "offlineLost",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A17",
+      "group": "A",
+      "title": "Ručno postavljena proba bez početka",
+      "preset": "invalidtrial",
+      "steps": [],
+      "expect": "Nevaljano QA stanje mora ostaviti Premium zaključan; nema trodnevne probe bez gumba „Pokreni probu 3 dana”.",
+      "scope": "QA",
+      "state": "invalid",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A18",
+      "group": "A",
+      "title": "Ručno otkazana pretplata bez obnove i roka",
+      "preset": "invalidcancel",
+      "steps": [],
+      "expect": "Ručni status „Otkazana” uz još uključenu obnovu ne može odobriti Premium.",
+      "scope": "QA",
+      "state": "invalid",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "A19",
+      "group": "A",
+      "title": "Reset nakon isteklog statusa",
+      "preset": "expired",
+      "steps": [
+        "Pritisni „Resetiraj simulaciju” još jednom.",
+        "Provjeri da izbornici prikazuju Besplatni korisnik / Aktivna / Trgovina dostupna te da više nema datuma isteka."
+      ],
+      "expect": "Reset vraća isključenu simulaciju bez prethodnih Premium prava i upozorenja.",
+      "scope": "QA",
+      "state": "disabled",
+      "popup": "none",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B01",
+      "group": "B",
+      "title": "Posjedovani mjesečni plan nije zelena prodajna ponuda",
+      "preset": "monthly",
+      "steps": [],
+      "expect": "Mjesečni je zlatno označen „Trenutačni plan”; zeleni izbor ne znači već kupljeno pravo.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B02",
+      "group": "B",
+      "title": "Ručno odaberi godišnju karticu dok je mjesečna aktivna",
+      "preset": "monthly",
+      "steps": [
+        "Na Premium ekranu dodirni prodajnu karticu „Godišnja”."
+      ],
+      "expect": "Mjesečna ostaje zlatno označeni posjedovani plan, godišnja je samo namjerno odabrana ponuda.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B03",
+      "group": "B",
+      "title": "Odabir godišnje ponude kod besplatnog korisnika",
+      "preset": "free",
+      "steps": [
+        "Otvori Premium ekran, dodirni karticu „Godišnja”, vrati se u Postavke."
+      ],
+      "expect": "I dalje Besplatni korisnik; odabir kartice ne daje Premium.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B04",
+      "group": "B",
+      "title": "Zakaži godišnji plan iz mjesečnog",
+      "preset": "monthly",
+      "steps": [
+        "U QA poslovnim scenarijima pritisni „Zakaži yearly”."
+      ],
+      "expect": "Trenutačni plan ostaje mjesečni; novi plan nije potvrđen i ne smije pisati „Sljedeći plan”.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B05",
+      "group": "B",
+      "title": "Trgovinski potvrdi zakazanu godišnju promjenu",
+      "preset": "monthly",
+      "steps": [
+        "Pritisni „Zakaži yearly”.",
+        "Pritisni „Potvrdi promjenu”."
+      ],
+      "expect": "Premium ekran prikazuje Trenutačni plan: mjesečna i Sljedeći plan: godišnja; datum samo ako ga kod pouzdano ima.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B06",
+      "group": "B",
+      "title": "Primijeni potvrđeni plan pri obnovi",
+      "preset": "monthly",
+      "steps": [
+        "Pritisni „Zakaži yearly”.",
+        "Pritisni „Potvrdi promjenu”.",
+        "Pritisni „Primijeni na obnovu”."
+      ],
+      "expect": "Godišnja postaje trenutačni plan, bez gubitka Premium prava.",
+      "scope": "QA",
+      "state": "activeY",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B07",
+      "group": "B",
+      "title": "Neuspjela promjena ne mijenja trenutačni plan",
+      "preset": "monthly",
+      "steps": [
+        "Pritisni „Zakaži yearly”.",
+        "Pritisni „Neuspjela promjena”."
+      ],
+      "expect": "Trenutačni mjesečni plan ostaje; ne prikazivati potvrdu godišnjeg.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B08",
+      "group": "B",
+      "title": "Nepoznat ishod promjene",
+      "preset": "monthly",
+      "steps": [
+        "Pritisni „Zakaži yearly”.",
+        "Pritisni „Nepoznata potvrda”."
+      ],
+      "expect": "Nema lažne potvrde promjene i nema promjene Premium prava.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B09",
+      "group": "B",
+      "title": "Ranije potvrđeni plan preživljava novi neuspjeh",
+      "preset": "monthly",
+      "steps": [
+        "Pritisni „Zakaži quarterly”.",
+        "Pritisni „Potvrdi promjenu”.",
+        "Pritisni „Zakaži yearly”.",
+        "Pritisni „Neuspjela promjena”."
+      ],
+      "expect": "Ranije potvrđeni sljedeći tromjesečni plan i dalje je vidljiv; godišnja nije potvrđena.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B10",
+      "group": "B",
+      "title": "Ranije potvrđeni plan preživljava nepoznat ishod",
+      "preset": "monthly",
+      "steps": [
+        "Pritisni „Zakaži quarterly”.",
+        "Pritisni „Potvrdi promjenu”.",
+        "Pritisni „Zakaži yearly”.",
+        "Pritisni „Nepoznata potvrda”."
+      ],
+      "expect": "Potvrđeni tromjesečni plan ostaje, a ishod novog zahtjeva je nepoznat.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B11",
+      "group": "B",
+      "title": "Otkazivanje obnove nakon zakazane promjene",
+      "preset": "cancelFuture",
+      "steps": [
+        "Pritisni „Zakaži yearly”.",
+        "Pritisni „Potvrdi promjenu”.",
+        "Pritisni „Otkaži obnovu”."
+      ],
+      "expect": "Otkazivanje obnove ima prednost; nema zakazane naplate budućeg plana.",
+      "scope": "QA",
+      "state": "cancelFuture",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B12",
+      "group": "B",
+      "title": "Ponovno uključi obnovu prije isteka",
+      "preset": "cancelFuture",
+      "steps": [
+        "Pritisni „Otkaži obnovu”.",
+        "Pritisni „Uključi obnovu”."
+      ],
+      "expect": "Status ponovno postaje Aktivna; Premium i postojeći plan ostaju bez druge kupnje.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B13",
+      "group": "B",
+      "title": "Zakazivanje nakon isključivanja obnove",
+      "preset": "cancelFuture",
+      "steps": [
+        "Pritisni „Otkaži obnovu”.",
+        "Pritisni „Zakaži yearly”."
+      ],
+      "expect": "Ne smije se zakazati nova promjena dok je obnova isključena.",
+      "scope": "QA",
+      "state": "cancelFuture",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B14",
+      "group": "B",
+      "title": "Tromjesečna u mjesečnu uz potvrdu",
+      "preset": "quarterly",
+      "steps": [
+        "Pritisni „Zakaži monthly”.",
+        "Pritisni „Potvrdi promjenu”."
+      ],
+      "expect": "Trenutačni tromjesečni ostaje do primjene; mjesečni je sljedeći potvrđeni.",
+      "scope": "QA",
+      "state": "activeQ",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B15",
+      "group": "B",
+      "title": "Godišnja u tromjesečnu uz potvrdu",
+      "preset": "yearly",
+      "steps": [
+        "Pritisni „Zakaži quarterly”.",
+        "Pritisni „Potvrdi promjenu”."
+      ],
+      "expect": "Godišnji ostaje trenutačni do obnove; tromjesečni je potvrđeni sljedeći plan.",
+      "scope": "QA",
+      "state": "activeY",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B16",
+      "group": "B",
+      "title": "Višestruke potvrđene promjene",
+      "preset": "monthly",
+      "steps": [
+        "Pritisni „Zakaži quarterly”.",
+        "Pritisni „Potvrdi promjenu”.",
+        "Pritisni „Zakaži yearly”.",
+        "Pritisni „Potvrdi promjenu”."
+      ],
+      "expect": "Prikaz mora razlikovati stvarni mjesečni plan i posljednji potvrđeni godišnji plan.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B17",
+      "group": "B",
+      "title": "Odabir istoga plana na Premium kartici",
+      "preset": "monthly",
+      "steps": [
+        "Otvori Premium ekran i dodirni već posjedovani „Mjesečna”.",
+        "Pritisni „Nastavi” i riješi matematički zadatak."
+      ],
+      "expect": "Obavijest: „Ovaj je plan već tvoj trenutačni plan.”; nema nove kupnje.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "B18",
+      "group": "B",
+      "title": "Promjena plana bez potvrđenog datuma",
+      "preset": "monthly",
+      "steps": [
+        "Pritisni „Zakaži yearly”.",
+        "Pritisni „Potvrdi promjenu”."
+      ],
+      "expect": "Ne prikazivati izmišljeni datum buduće naplate ili prijelaza.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "C01",
+      "group": "C",
+      "title": "Pokreni trodnevnu QA probu",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Pokreni probu 3 dana”."
+      ],
+      "expect": "Proba dobiva stvarni početak i kraj u QA stanju; Premium se otključava uz status „Probno razdoblje”.",
+      "scope": "QA",
+      "state": "trialY",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "C02",
+      "group": "C",
+      "title": "Pokreni probu za mjesečni plan",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Ponuda: mjesečna pretplata”.",
+        "Pritisni „Pokreni probu 3 dana”."
+      ],
+      "expect": "Aktivna QA proba vezana je uz mjesečni plan, ne automatski godišnji.",
+      "scope": "QA",
+      "state": "trialM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "C03",
+      "group": "C",
+      "title": "Pokreni probu za tromjesečni plan",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Ponuda: tromjesečna pretplata”.",
+        "Pritisni „Pokreni probu 3 dana”."
+      ],
+      "expect": "Pravo je probno; aktualni plan tromjesečni.",
+      "scope": "QA",
+      "state": "trialQ",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "C04",
+      "group": "C",
+      "title": "Samo ručni status Probno razdoblje nije proba",
+      "preset": "invalidtrial",
+      "steps": [],
+      "expect": "Prikaz „Probni status: ručno postavljen (nije QA proba)” i zaključani Premium.",
+      "scope": "QA",
+      "state": "invalid",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "C05",
+      "group": "C",
+      "title": "Proba nije isto što i odgoda plaćanja",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Pokreni probu 3 dana”."
+      ],
+      "expect": "Dok nije simulirana neuspjela naplata, nema skočnog prozora o neuspješnoj naplati.",
+      "scope": "QA",
+      "state": "trialY",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "C06",
+      "group": "C",
+      "title": "Ne dopusti drugu QA probu bez reseta",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Pokreni probu 3 dana”.",
+        "Pritisni „Pokreni probu 3 dana” ponovno."
+      ],
+      "expect": "Drugi pritisak ne otvara novo trodnevno razdoblje niti mijenja početak probe.",
+      "scope": "QA",
+      "state": "trialY",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "C07",
+      "group": "C",
+      "title": "Vidljiva oznaka stvarno pokrenute QA probe",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Pokreni probu 3 dana”.",
+        "Pročitaj redak „QA proba:” u skrivenoj kartici."
+      ],
+      "expect": "Mora pisati „QA proba: stvarno pokrenuta”.",
+      "scope": "QA",
+      "state": "trialY",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "C08",
+      "group": "C",
+      "title": "Neuspjela prva naplata nakon probe",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Pokreni probu 3 dana”.",
+        "Pritisni „Neuspjela prva naplata”."
+      ],
+      "expect": "Ako QA neuspjeh stvori incident, popup naplate i odgoda moraju se razlikovati od same probe.",
+      "scope": "QA",
+      "state": "graceTrialY",
+      "popup": "graceIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "C09",
+      "group": "C",
+      "title": "Ručni istek prethodno pokrenute probe",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Pokreni probu 3 dana”.",
+        "U polju „Status” odaberi „Istekla”."
+      ],
+      "expect": "Nakon ručne promjene statusa, Premium više nije dostupan; QA ne simulira protek realna tri dana.",
+      "scope": "QA",
+      "state": "expiredY",
+      "popup": "expired",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D01",
+      "group": "D",
+      "title": "Ručni store grace bez incidenta",
+      "preset": "manualgrace",
+      "steps": [],
+      "expect": "Premium dopušten samo kao QA store grace, bez incidentnog upozorenja.",
+      "scope": "QA",
+      "state": "graceManual",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D02",
+      "group": "D",
+      "title": "Ručni store account hold",
+      "preset": "hold",
+      "steps": [],
+      "expect": "Premium je zaključan, naslov upozorenja u Postavkama „Problem s naplatom”.",
+      "scope": "QA",
+      "state": "hold",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D03",
+      "group": "D",
+      "title": "Neuspjela automatska obnova otvara odgodu",
+      "preset": "graceIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”."
+      ],
+      "expect": "Premium ostaje dostupan tijekom simulirane trodnevne odgode.",
+      "scope": "QA",
+      "state": "graceIncident",
+      "popup": "graceIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D04",
+      "group": "D",
+      "title": "Neuspjela prva naplata otvara odgodu",
+      "preset": "graceIncident",
+      "steps": [
+        "Pritisni „Neuspjela prva naplata”."
+      ],
+      "expect": "Jednako kontekstualno upozorenje i Premium pristup tijekom odgode.",
+      "scope": "QA",
+      "state": "graceIncident",
+      "popup": "graceIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D05",
+      "group": "D",
+      "title": "Popup odgode ne ponavlja se navigacijom",
+      "preset": "graceIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "Zatvori popup tipkom „Kasnije”, prijeđi na Home i natrag u Postavke."
+      ],
+      "expect": "Isti popup se ne ponavlja samo zbog navigacije; kartica upozorenja ostaje.",
+      "scope": "QA",
+      "state": "graceIncident",
+      "popup": "graceIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D06",
+      "group": "D",
+      "title": "Kvačica Ne prikazuj više utišava odgodu",
+      "preset": "graceIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "U popupu označi „Ne prikazuj više”, zatim pritisni „Kasnije”."
+      ],
+      "expect": "Utišava samo upozorenje o odgodi za konkretni incident.",
+      "scope": "QA",
+      "state": "graceIncident",
+      "popup": "graceIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D07",
+      "group": "D",
+      "title": "Upozorenje u Postavkama ostaje i kad je popup utišan",
+      "preset": "graceIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "Označi „Ne prikazuj više” i pritisni „Kasnije”.",
+        "Ponovno otvori Postavke."
+      ],
+      "expect": "Kartica s upozorenjem i radnjom „Riješi plaćanje” i dalje je vidljiva.",
+      "scope": "QA",
+      "state": "graceIncident",
+      "popup": "graceIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D08",
+      "group": "D",
+      "title": "Istek odgode nakon neuspjele obnove",
+      "preset": "lossIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "Zatvori prozor odgode gumbom „Kasnije”.",
+        "Pritisni „Istek odgode plaćanja”."
+      ],
+      "expect": "Premium se zaključava; očekuje se drugi, sadržajno različit popup.",
+      "scope": "QA",
+      "state": "lossIncident",
+      "popup": "lossIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D09",
+      "group": "D",
+      "title": "Popup nakon gubitka Premium prava",
+      "preset": "lossIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "Zatvori prvi popup.",
+        "Pritisni „Istek odgode plaćanja”."
+      ],
+      "expect": "Naslov „Premium više nije dostupan”, radnje „Kasnije” i „Riješi plaćanje”.",
+      "scope": "QA",
+      "state": "lossIncident",
+      "popup": "lossIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D10",
+      "group": "D",
+      "title": "Utišavanje upozorenja o gubitku prava",
+      "preset": "lossIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "Zatvori prvi popup.",
+        "Pritisni „Istek odgode plaćanja”.",
+        "Označi „Ne prikazuj više” i pritisni „Kasnije”."
+      ],
+      "expect": "Utišava samo popup gubitka prava tog incidenta; kartica upozorenja ostaje.",
+      "scope": "QA",
+      "state": "lossIncident",
+      "popup": "lossIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D11",
+      "group": "D",
+      "title": "Utišana odgoda ne utišava gubitak prava",
+      "preset": "lossIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "U prvom popupu označi „Ne prikazuj više” i pritisni „Kasnije”.",
+        "Pritisni „Istek odgode plaćanja”."
+      ],
+      "expect": "Drugi popup smije se pojaviti iako je prvi utišan.",
+      "scope": "QA",
+      "state": "lossIncident",
+      "popup": "lossIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D12",
+      "group": "D",
+      "title": "Oporavak nakon isteka odgode",
+      "preset": "recovered",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "Zatvori popup odgode.",
+        "Pritisni „Istek odgode plaćanja”.",
+        "Zatvori popup gubitka prava.",
+        "Pritisni „Oporavi naplatu”."
+      ],
+      "expect": "Premium se ponovno aktivira bez nove simulirane kupnje; očekuje se poruka oporavka.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": "recovery",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D13",
+      "group": "D",
+      "title": "Potvrda oporavka 10 sekundi s X",
+      "preset": "recovered",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "Pritisni „Oporavi naplatu”."
+      ],
+      "expect": "Jedan toast „Premium je ponovno aktivan.” s ×, približno 10 s.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": "recovery",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D14",
+      "group": "D",
+      "title": "Novi incident ponovno dopušta popup",
+      "preset": "graceIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "Zatvori popup.",
+        "Pritisni „Oporavi naplatu”.",
+        "Pritisni „Neuspjela obnova” još jednom."
+      ],
+      "expect": "Novi incident ima novo upozorenje; prethodno utišavanje ne vrijedi za njega.",
+      "scope": "QA",
+      "state": "graceIncident",
+      "popup": "graceIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D15",
+      "group": "D",
+      "title": "Riješi plaćanje iz popup-a traži roditeljsku provjeru",
+      "preset": "graceIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "U popupu pritisni „Riješi plaćanje”."
+      ],
+      "expect": "Prije akcije pojavljuje se novi matematički zadatak; nema stvarne trgovinske naplate.",
+      "scope": "QA",
+      "state": "graceIncident",
+      "popup": "graceIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D16",
+      "group": "D",
+      "title": "Kasnije ne mijenja pravo na Premium",
+      "preset": "graceIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "U popupu pritisni „Kasnije”."
+      ],
+      "expect": "Popup se zatvara, Premium ostaje dostupan u odgodi.",
+      "scope": "QA",
+      "state": "graceIncident",
+      "popup": "graceIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D17",
+      "group": "D",
+      "title": "Trgovina privremeno nedostupna nije neuspjela naplata",
+      "preset": "unavailable",
+      "steps": [],
+      "expect": "Ne prikazuje se „Plaćanje pretplate nije uspjelo” bez incidenta.",
+      "scope": "QA",
+      "state": "unavailable",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D18",
+      "group": "D",
+      "title": "Slušanje priče ne smije se prekinuti upozorenjem",
+      "preset": "graceIncident",
+      "steps": [
+        "Najprije pokreni besplatnu priču.",
+        "Dok priča svira, u QA kartici pritisni „Neuspjela obnova”."
+      ],
+      "expect": "Popup o naplati odgađa se dok priča aktivno svira.",
+      "scope": "QA",
+      "state": "graceIncident",
+      "popup": "graceIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D19",
+      "group": "D",
+      "title": "Ručni account hold bez incidenta ne glumi grace",
+      "preset": "hold",
+      "steps": [],
+      "expect": "Nema trodnevne odgode niti „Riješi plaćanje” kao incidentne radnje ako incident ne postoji.",
+      "scope": "QA",
+      "state": "hold",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D20",
+      "group": "D",
+      "title": "Premium ekran nakon gubitka prava nudi rješavanje",
+      "preset": "lossIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "Zatvori prvi popup.",
+        "Pritisni „Istek odgode plaćanja”.",
+        "Otvori Premium ekran."
+      ],
+      "expect": "Na Premium ekranu dostupan je „Riješi plaćanje” s roditeljskom provjerom, ne nova generička kupnja.",
+      "scope": "QA",
+      "state": "lossIncident",
+      "popup": "lossIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D21",
+      "group": "D",
+      "title": "Riješi plaćanje u Postavkama tijekom odgode",
+      "preset": "graceIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "Zatvori popup.",
+        "U kartici upozorenja Postavki dodirni „Riješi plaćanje”."
+      ],
+      "expect": "Pojavljuje se matematička provjera; nakon točnog odgovora samo poruka o budućem povezivanju trgovine.",
+      "scope": "QA",
+      "state": "graceIncident",
+      "popup": "graceIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D22",
+      "group": "D",
+      "title": "Oporavak naplate ne zahtijeva Vrati kupnje",
+      "preset": "recovered",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "Zatvori popup.",
+        "Pritisni „Oporavi naplatu”."
+      ],
+      "expect": "Pravo postaje aktivno bez ručne akcije „Vrati kupnje”.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": "recovery",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "D23",
+      "group": "D",
+      "title": "Reset briše incident i utišavanja",
+      "preset": "graceIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "Zatvori popup.",
+        "Pritisni „Resetiraj simulaciju”."
+      ],
+      "expect": "Nema preostalih upozorenja, odgode ni Premium prava.",
+      "scope": "QA",
+      "state": "disabled",
+      "popup": "none",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E01",
+      "group": "E",
+      "title": "Svježi offline početak",
+      "preset": "offlineFresh",
+      "steps": [],
+      "expect": "S uključenim Offline testom posljednja provjera je svježa; Premium ostaje dostupan.",
+      "scope": "QA",
+      "state": "offlineValid",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E02",
+      "group": "E",
+      "title": "Offline 119 h je unutar dopuštenog roka",
+      "preset": "offline119",
+      "steps": [],
+      "expect": "Premium pristup još radi; upozorenje upozorava na skoru provjeru.",
+      "scope": "QA",
+      "state": "offlineNear",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E03",
+      "group": "E",
+      "title": "Čip 120 h i granica vremena",
+      "preset": "offline120",
+      "steps": [],
+      "expect": "Granica je nestabilna zbog proteklih milisekundi, pa se ovaj test ocjenjuje uz zabilježen trenutak, ne kao točnih 120:00:00.",
+      "scope": "OGRANIČENO",
+      "state": "offlineBoundary",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E04",
+      "group": "E",
+      "title": "Offline 121 h blokira nove Premium početke",
+      "preset": "offline121",
+      "steps": [],
+      "expect": "Pravo nije potvrđeno, a ne nužno isteklo; nove Premium reprodukcije su zaključane.",
+      "scope": "QA",
+      "state": "offlineLost",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E05",
+      "group": "E",
+      "title": "119 h prikazuje popup prije isteka",
+      "preset": "offline119",
+      "steps": [],
+      "expect": "Jedan popup s opcijama „Zanemari” i „Provjeri sada”.",
+      "scope": "QA",
+      "state": "offlineNear",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E06",
+      "group": "E",
+      "title": "Zanemari upozorenje ne skida postojeće pravo",
+      "preset": "offline119",
+      "steps": [
+        "Na popupu pritisni „Zanemari”.",
+        "Pokušaj pokrenuti Premium priču „Stvaranje svijeta”."
+      ],
+      "expect": "U granici 119 h Premium priča je još dostupna, upozorenje ne mijenja pravo.",
+      "scope": "QA",
+      "state": "offlineNear",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E07",
+      "group": "E",
+      "title": "Kartica upozorenja ostaje nakon Zanemari",
+      "preset": "offline119",
+      "steps": [
+        "Na popupu pritisni „Zanemari”.",
+        "Otvori Postavke."
+      ],
+      "expect": "U Postavkama ostaje zasebna kartica „Premium uskoro treba provjeru”.",
+      "scope": "QA",
+      "state": "offlineNear",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E08",
+      "group": "E",
+      "title": "Offline 119 h s trgovinom nedostupnom",
+      "preset": "offline119",
+      "steps": [
+        "U polju „Stanje trgovine” odaberi „Trgovina nedostupna”."
+      ],
+      "expect": "QA može pokazati upozorenje o trgovini i očuvati postojeće offline pravo; provjeri stvarnu dosljednost poruka.",
+      "scope": "OGRANIČENO",
+      "state": "offlineNearUnavailable",
+      "popup": "unavailable",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E09",
+      "group": "E",
+      "title": "Online stanje s nedostupnom trgovinom",
+      "preset": "unavailable",
+      "steps": [],
+      "expect": "Nema lažne tvrdnje da je pretplata dokazano istekla.",
+      "scope": "QA",
+      "state": "unavailable",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E10",
+      "group": "E",
+      "title": "Isključen stvarni Wi-Fi bez prebacivanja QA stanja",
+      "preset": "monthly",
+      "steps": [
+        "Na telefonu isključi Wi-Fi i mobilne podatke, ali ne uključuj „Offline test”."
+      ],
+      "expect": "Ovaj debug QA ne provodi stvarnu provjeru trgovine; mrežni ishod nije dokaz produkcijskog offline pravila.",
+      "scope": "KASNIJE",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E11",
+      "group": "E",
+      "title": "Povratak s offline 121 h na online stanje",
+      "preset": "offline121",
+      "steps": [
+        "Isključi „Offline test”.",
+        "Provjeri vraća li se simulirano pravo na aktivni mjesečni plan."
+      ],
+      "expect": "QA promjena na online ponovno bilježi provjeru, bez stvarne trgovinske verifikacije.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": "none",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E12",
+      "group": "E",
+      "title": "Restart aplikacije uz spremljen offline čip",
+      "preset": "offline119",
+      "steps": [
+        "Zatvori aplikaciju i ponovno je pokreni bez brisanja podataka."
+      ],
+      "expect": "QA simulacija čuva spremljeno stanje i vremenski brojač; ne resetira ga zatvaranjem aplikacije.",
+      "scope": "QA",
+      "state": "offlineNear",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E13",
+      "group": "E",
+      "title": "Pravi restart uređaja nije dokazan simulacijom",
+      "preset": "offline119",
+      "steps": [
+        "Ponovno pokreni uređaj samo ako želiš fizički provjeriti ponašanje aplikacije."
+      ],
+      "expect": "QA koristi stabilni testni boot identitet; ovo NE potvrđuje produkcijsku obvezu nove verifikacije nakon restarta.",
+      "scope": "KASNIJE",
+      "state": "offlineNear",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E14",
+      "group": "E",
+      "title": "Testni datum isteka jučer dok je offline",
+      "preset": "offline119",
+      "steps": [
+        "U kalendaru testnog isteka odaberi jučerašnji datum."
+      ],
+      "expect": "Iako offline potvrda nije starija od 120 h, poznat istek mora ukinuti pravo.",
+      "scope": "QA",
+      "state": "expired",
+      "popup": "expired",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E15",
+      "group": "E",
+      "title": "Offline 121 h i poznati istek istodobno",
+      "preset": "offline121",
+      "steps": [
+        "U polju „Status” odaberi „Istekla”."
+      ],
+      "expect": "U QA politici provjera offline roka može imati prednost u prikazu; zabilježi je li status razumljiv i ne tvrdi lažnu online potvrdu.",
+      "scope": "OGRANIČENO",
+      "state": "offlineLost",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E16",
+      "group": "E",
+      "title": "Provjeri sada ne smije lažno obnoviti pravo",
+      "preset": "offline119",
+      "steps": [
+        "U popupu pritisni „Provjeri sada”."
+      ],
+      "expect": "Prikazuje se obavijest da provjera tek čeka trgovinu; nema lažnog potvrđivanja kupnje.",
+      "scope": "QA",
+      "state": "offlineNear",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E17",
+      "group": "E",
+      "title": "Ponovni pokušaj provjere nakon 121 h",
+      "preset": "offline121",
+      "steps": [
+        "Na popupu pritisni „Provjeri pretplatu”."
+      ],
+      "expect": "Nema lažne obnove prava bez potvrde trgovine.",
+      "scope": "QA",
+      "state": "offlineLost",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E18",
+      "group": "E",
+      "title": "Brojanje vremena tijekom spavanja telefona",
+      "preset": "offline119",
+      "steps": [
+        "Zaključaj ekran nekoliko minuta te ponovno pogledaj status."
+      ],
+      "expect": "Vrijeme se i dalje računa; kratki sleep ne resetira offline potvrdu.",
+      "scope": "OGRANIČENO",
+      "state": "offlineNear",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "E19",
+      "group": "E",
+      "title": "Fizički test sata i vremenske zone",
+      "preset": "offline119",
+      "steps": [
+        "Nemoj mijenjati sistemski sat tijekom osnovnog QA; ovaj slučaj ostavi za zasebnu sigurnosnu provjeru."
+      ],
+      "expect": "Manipulacija satom ne smije produžiti pravo, ali fizički test na ovoj QA simulaciji nije dokaz produkcijske otpornosti.",
+      "scope": "KASNIJE",
+      "state": "offlineNear",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "F01",
+      "group": "F",
+      "title": "Zaključavanje priče Stvaranje svijeta",
+      "preset": "free",
+      "steps": [
+        "Na Homeu otvori „Stvaranje svijeta” i pokušaj punu reprodukciju."
+      ],
+      "expect": "Puni Premium audio je blokiran; dopušten je samo ručni pregled/isječak ako postoji.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "F02",
+      "group": "F",
+      "title": "Zaključavanje priče Dječak Juraj",
+      "preset": "free",
+      "steps": [
+        "Otvori „Dječak Juraj” i pokušaj punu reprodukciju."
+      ],
+      "expect": "Puni Premium audio je blokiran.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "F03",
+      "group": "F",
+      "title": "Besplatna priča ostaje reproducibilna",
+      "preset": "free",
+      "steps": [
+        "Odaberi neku priču koja nije „Stvaranje svijeta” ni „Dječak Juraj” i ima stvarni audio.",
+        "Pritisni Play."
+      ],
+      "expect": "Besplatni audio radi bez Premiuma.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "F04",
+      "group": "F",
+      "title": "Demo ilustrirane priče nisu audio test",
+      "preset": "free",
+      "steps": [
+        "Otvori jednu od 10 ilustriranih demo priča s oznakom „Audio uskoro”."
+      ],
+      "expect": "Bez punog audioizvora nije dopušten zaključak o Premium reprodukciji; samo pregled sadržaja.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "F05",
+      "group": "F",
+      "title": "Zaključaj Premium uspavanku Klanjam ti se",
+      "preset": "free",
+      "steps": [
+        "U Postavkama uspavanke odaberi „Klanjam ti se” i pokušaj pokrenuti Play."
+      ],
+      "expect": "Zaključana Premium uspavanka ne započinje.",
+      "scope": "QA",
+      "state": "free",
+      "popup": "lockedAudio",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "F06",
+      "group": "F",
+      "title": "Zaključaj Premium pozadinski zvuk Kiša",
+      "preset": "free",
+      "steps": [
+        "Odaberi besplatnu uspavanku i pozadinski zvuk „Kiša”; pokušaj Play."
+      ],
+      "expect": "Nijedan dio miješane konfiguracije ne počinje automatski.",
+      "scope": "QA",
+      "state": "free",
+      "popup": "lockedAudio",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "F07",
+      "group": "F",
+      "title": "Premium uspavanka + besplatni ambijent",
+      "preset": "free",
+      "steps": [
+        "Odaberi „Klanjam ti se” i jedan besplatni pozadinski zvuk; pritisni Play."
+      ],
+      "expect": "Blokiran je cijeli Play; besplatni sloj ne počinje sam.",
+      "scope": "QA",
+      "state": "free",
+      "popup": "lockedAudio",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "F08",
+      "group": "F",
+      "title": "Premium uspavanka + Premium Kiša",
+      "preset": "free",
+      "steps": [
+        "Odaberi „Klanjam ti se” i „Kiša”; pritisni Play."
+      ],
+      "expect": "Cijela konfiguracija ostaje zaustavljena.",
+      "scope": "QA",
+      "state": "free",
+      "popup": "lockedAudio",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "F09",
+      "group": "F",
+      "title": "Potpuno besplatna audio konfiguracija",
+      "preset": "free",
+      "steps": [
+        "Odaberi besplatnu uspavanku i besplatni pozadinski zvuk te pritisni Play."
+      ],
+      "expect": "Potpuno besplatna konfiguracija se pokreće.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "F10",
+      "group": "F",
+      "title": "Aktivni Premium otključava Stvaranje svijeta",
+      "preset": "monthly",
+      "steps": [
+        "Otvori „Stvaranje svijeta” i pritisni Play."
+      ],
+      "expect": "Valjani mjesečni QA Premium dopušta puni audio.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "F11",
+      "group": "F",
+      "title": "Aktivni Premium otključava Klanjam ti se",
+      "preset": "monthly",
+      "steps": [
+        "Odaberi „Klanjam ti se” i pritisni Play."
+      ],
+      "expect": "Premium uspavanka radi.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "F12",
+      "group": "F",
+      "title": "Aktivni Premium otključava Kišu",
+      "preset": "monthly",
+      "steps": [
+        "Odaberi „Kiša” i pritisni Play s valjanom konfiguracijom."
+      ],
+      "expect": "Premium pozadinski zvuk radi.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "F13",
+      "group": "F",
+      "title": "Gubitak prava tijekom priče",
+      "preset": "monthly",
+      "steps": [
+        "Pokreni „Stvaranje svijeta”.",
+        "Dok priča svira, u QA kartici promijeni „Status” na „Istekla”."
+      ],
+      "expect": "Već započeta priča smije završiti, novi Premium početak je zaključan.",
+      "scope": "QA",
+      "state": "expired",
+      "popup": "expired",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "F14",
+      "group": "F",
+      "title": "Gubitak prava tijekom uspavanke i rok od 10 h",
+      "preset": "monthly",
+      "steps": [
+        "Pokreni „Klanjam ti se” i/ili „Kiša”.",
+        "Dok sloj svira, u QA kartici promijeni „Status” na „Istekla”."
+      ],
+      "expect": "Postojeća sesija može nastaviti najviše do 10 h / kraja originalnog timera; novi Play nije dopušten. Cjelovit 10-satni test zahtijeva zaseban postupak.",
+      "scope": "OGRANIČENO",
+      "state": "expired",
+      "popup": "expired",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G01",
+      "group": "G",
+      "title": "Postavke — besplatni korisnik",
+      "preset": "free",
+      "steps": [],
+      "expect": "Premium / Besplatni korisnik / Nije aktivna; „Pogledaj Premium”.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G02",
+      "group": "G",
+      "title": "Premium ekran — besplatni korisnik",
+      "preset": "free",
+      "steps": [],
+      "expect": "„Otključaj sve priče”; tri ponude; godišnja zadano zelena, nijedna posjedovana.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G03",
+      "group": "G",
+      "title": "Postavke — aktivna mjesečna",
+      "preset": "monthly",
+      "steps": [],
+      "expect": "„Premium sadržaj već je uključen i dostupan.”",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G04",
+      "group": "G",
+      "title": "Premium ekran — aktivna mjesečna",
+      "preset": "monthly",
+      "steps": [],
+      "expect": "Naslov „Premium je uključen”; mjesečni plan zlatno označen.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G05",
+      "group": "G",
+      "title": "Premium ekran — aktivna godišnja",
+      "preset": "yearly",
+      "steps": [],
+      "expect": "Naslov „Premium je uključen”; godišnji posjedovani plan ne izgleda kao nova kupnja.",
+      "scope": "QA",
+      "state": "activeY",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G06",
+      "group": "G",
+      "title": "Premium ekran — aktivna tromjesečna",
+      "preset": "quarterly",
+      "steps": [],
+      "expect": "Zlatna oznaka na tromjesečnoj; ostali planovi nisu kupljeni.",
+      "scope": "QA",
+      "state": "activeQ",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G07",
+      "group": "G",
+      "title": "Popup potvrđenog isteka",
+      "preset": "expired",
+      "steps": [],
+      "expect": "Naslov i tekst doslovno odgovaraju statusu isteka.",
+      "scope": "QA",
+      "state": "expired",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G08",
+      "group": "G",
+      "title": "Premium ekran nakon isteka",
+      "preset": "expired",
+      "steps": [],
+      "expect": "„Prethodna Premium pretplata je završila” s mogućnošću izbora plana.",
+      "scope": "QA",
+      "state": "expired",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G09",
+      "group": "G",
+      "title": "Kupnja u obradi — popup",
+      "preset": "pending",
+      "steps": [],
+      "expect": "Ne smije reći da je internet problem; kupnja čeka potvrdu trgovine.",
+      "scope": "QA",
+      "state": "pending",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G10",
+      "group": "G",
+      "title": "Kupnja u obradi — Premium ekran",
+      "preset": "pending",
+      "steps": [],
+      "expect": "Nema tri prodajne kartice kao novog checkouta dok čeka ista kupnja.",
+      "scope": "QA",
+      "state": "pending",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G11",
+      "group": "G",
+      "title": "Problem s naplatom — Postavke",
+      "preset": "hold",
+      "steps": [],
+      "expect": "Upozorenje naslovom razlikuje problem naplate od offline provjere.",
+      "scope": "QA",
+      "state": "hold",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G12",
+      "group": "G",
+      "title": "Odgoda uz incident — Postavke",
+      "preset": "graceIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”."
+      ],
+      "expect": "Kartica upozorenja govori da je Premium zasad dostupan.",
+      "scope": "QA",
+      "state": "graceIncident",
+      "popup": "graceIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G13",
+      "group": "G",
+      "title": "Pokrenuta proba — oba ekrana",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Pokreni probu 3 dana”."
+      ],
+      "expect": "Proba nije prikazana kao istekla ili standardni prodajni ekran.",
+      "scope": "QA",
+      "state": "trialY",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G14",
+      "group": "G",
+      "title": "Otkazana obnova uz budući istek",
+      "preset": "cancelFuture",
+      "steps": [
+        "Pritisni „Otkaži obnovu”."
+      ],
+      "expect": "Premium aktivan do testnog datuma; obnova isključena.",
+      "scope": "QA",
+      "state": "cancelFuture",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G15",
+      "group": "G",
+      "title": "Opozvana kupnja — oba ekrana",
+      "preset": "revoked",
+      "steps": [],
+      "expect": "Ne piše „Aktivna”; status opoziva jasno vidljiv u Postavkama.",
+      "scope": "QA",
+      "state": "revoked",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G16",
+      "group": "G",
+      "title": "Offline 119 h — upozorenja",
+      "preset": "offline119",
+      "steps": [],
+      "expect": "Nema tvrdnje da je kupnja istekla, već da uskoro treba provjeru.",
+      "scope": "QA",
+      "state": "offlineNear",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "G17",
+      "group": "G",
+      "title": "Nema kontradiktornih statusa nakon promjena",
+      "preset": "monthly",
+      "steps": [
+        "Promijeni „Vrsta pristupa” na „Premium — godišnja pretplata”.",
+        "Promijeni „Stanje trgovine” na „Kupnja u obradi”.",
+        "Provjeri Postavke i Premium ekran."
+      ],
+      "expect": "Oba ekrana govore o istoj godišnjoj kupnji na čekanju; ne pojavljuje se lažni aktivni status.",
+      "scope": "QA",
+      "state": "pendingY",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H01",
+      "group": "H",
+      "title": "Pregled Premium ekrana bez roditeljskog zadatka",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Pogledaj Premium” u Postavkama."
+      ],
+      "expect": "Pregled ponuda dostupan je bez matematičke provjere.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H02",
+      "group": "H",
+      "title": "Nastavi pokreće matematičku provjeru",
+      "preset": "free",
+      "steps": [
+        "Na Premium ekranu pritisni „Nastavi”."
+      ],
+      "expect": "Prikazuje se matematička provjera prije bilo kakve kupovne radnje.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H03",
+      "group": "H",
+      "title": "Netočan matematički odgovor",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Nastavi”.",
+        "Upiši namjerno netočan odgovor i potvrdi."
+      ],
+      "expect": "Kupovna radnja se ne izvršava i Premium ostaje zaključan.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H04",
+      "group": "H",
+      "title": "Odustajanje od roditeljskog zadatka",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Nastavi”.",
+        "Zatvori provjeru ili pritisni „Odustani”."
+      ],
+      "expect": "Bez kupnje i bez Premium prava.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H05",
+      "group": "H",
+      "title": "Točan odgovor daje samo informativnu poruku",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Nastavi”.",
+        "Riješi prikazani matematički zadatak točno."
+      ],
+      "expect": "Samo obavijest: „Plaćanje će biti dostupno nakon povezivanja trgovine aplikacija.”; pravo ostaje besplatno.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H06",
+      "group": "H",
+      "title": "Vrati kupnje traži novu provjeru",
+      "preset": "free",
+      "steps": [
+        "Na Premium ekranu pritisni „Vrati kupnje”."
+      ],
+      "expect": "Za svako vraćanje kupnji otvara se nova matematička provjera.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H07",
+      "group": "H",
+      "title": "Upravljaj pretplatom traži provjeru",
+      "preset": "monthly",
+      "steps": [
+        "Na Premium ekranu pritisni „Upravljaj pretplatom”."
+      ],
+      "expect": "Prikazuje se matematički zadatak; stvarna trgovina nije spojena.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H08",
+      "group": "H",
+      "title": "Riješi plaćanje traži provjeru",
+      "preset": "graceIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "U popupu odaberi „Riješi plaćanje”."
+      ],
+      "expect": "Prije radnje se traži matematički odgovor.",
+      "scope": "QA",
+      "state": "graceIncident",
+      "popup": "graceIncident",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H09",
+      "group": "H",
+      "title": "Nova radnja traži novu matematičku provjeru",
+      "preset": "monthly",
+      "steps": [
+        "Na Premium ekranu pritisni „Vrati kupnje” i riješi zadatak.",
+        "Zatim pritisni „Upravljaj pretplatom”."
+      ],
+      "expect": "Druga osjetljiva radnja ponovno traži zadatak; nema trajno otključane sesije.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H10",
+      "group": "H",
+      "title": "Pogrešan odgovor ne pokreće checkout",
+      "preset": "monthly",
+      "steps": [
+        "Na Premium ekranu izaberi drugu karticu i pritisni „Nastavi”.",
+        "Namjerno pogriješi zadatak."
+      ],
+      "expect": "Nema kupnje niti promjene aktivne mjesečne pretplate.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H11",
+      "group": "H",
+      "title": "Roditeljski zadatak razlikuje izraze",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Nastavi”, zatvori provjeru pa ponovno pritisni „Nastavi”."
+      ],
+      "expect": "Matematički izrazi ne bi se smjeli neposredno identično ponavljati, prema implementiranom generatoru.",
+      "scope": "OGRANIČENO",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H12",
+      "group": "H",
+      "title": "Dijeljenje priče koristi roditeljsku zaštitu",
+      "preset": "free",
+      "steps": [
+        "Otvori priču i pokušaj radnju dijeljenja ako je dostupna."
+      ],
+      "expect": "Provjera je matematička; ne izdaje Premium prava.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H13",
+      "group": "H",
+      "title": "Odabir ponude ne traži zadatak",
+      "preset": "free",
+      "steps": [
+        "Otvori Premium ekran i prebacuj između Mjesečna, Tromjesečna i Godišnja."
+      ],
+      "expect": "Samo izbor ponude bez izvršne radnje ne zahtijeva roditeljski zadatak.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H14",
+      "group": "H",
+      "title": "Kupnja nije aktivirana nakon točnog zadatka",
+      "preset": "free",
+      "steps": [
+        "Pritisni „Nastavi” i riješi zadatak točno.",
+        "Vrati se u Postavke."
+      ],
+      "expect": "Bez stvarne trgovine Status ostaje „Nije aktivna”.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H15",
+      "group": "H",
+      "title": "Aktivni plan — ista ponuda bez ponovne kupnje",
+      "preset": "monthly",
+      "steps": [
+        "Na Premium ekranu odaberi Mjesečna.",
+        "Pritisni „Nastavi” i riješi zadatak."
+      ],
+      "expect": "Toast „Ovaj je plan već tvoj trenutačni plan.”",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H16",
+      "group": "H",
+      "title": "Nepoznat ishod provjere ne otključava sadržaj",
+      "preset": "pending",
+      "steps": [
+        "Otvori Premium ekran i potraži kupovnu radnju."
+      ],
+      "expect": "Čekanje potvrde ne smije ponuditi ponovni checkout iste transakcije.",
+      "scope": "QA",
+      "state": "pending",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "H17",
+      "group": "H",
+      "title": "QA način nije produkcijska roditeljska dozvola",
+      "preset": "free",
+      "steps": [
+        "Provjeri da skrivena QA kartica jasno kaže „Testni način rada — nema stvarne kupnje”."
+      ],
+      "expect": "Ovim debug testom ne može se potvrditi release izolacija ili stvarni Google/Apple checkout.",
+      "scope": "KASNIJE",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "I01",
+      "group": "I",
+      "title": "QA stanje ostaje nakon ponovnog otvaranja aplikacije",
+      "preset": "monthly",
+      "steps": [
+        "Zatvori aplikaciju bez brisanja podataka pa je ponovno otvori."
+      ],
+      "expect": "Simulirana mjesečna pretplata ostaje spremljena; podaci QA-a ne ovise o stanju HTML stranice.",
+      "scope": "QA",
+      "state": "activeM",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "I02",
+      "group": "I",
+      "title": "Reset čisti simulaciju i datum isteka",
+      "preset": "expiredDate",
+      "steps": [
+        "Pritisni „Resetiraj simulaciju”."
+      ],
+      "expect": "Ponovno je Besplatni korisnik, simulacija ISKLJUČENA, datum isteka ne postoji.",
+      "scope": "QA",
+      "state": "disabled",
+      "popup": "none",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "I03",
+      "group": "I",
+      "title": "Reset čisti incident naplate",
+      "preset": "graceIncident",
+      "steps": [
+        "Pritisni „Neuspjela obnova”.",
+        "Pritisni „Resetiraj simulaciju”."
+      ],
+      "expect": "Nema incidenta naplate, upozorenja niti Premium prava.",
+      "scope": "QA",
+      "state": "disabled",
+      "popup": "none",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "I04",
+      "group": "I",
+      "title": "Provjeri sve tri QA padajuće vrijednosti nakon reseta",
+      "preset": "pending",
+      "steps": [
+        "Pritisni „Resetiraj simulaciju”.",
+        "Ponovno otvori QA karticu ako je potrebno."
+      ],
+      "expect": "Vrsta pristupa: Besplatni korisnik; Status: Aktivna; Stanje trgovine: Trgovina dostupna.",
+      "scope": "QA",
+      "state": "disabled",
+      "popup": "none",
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "I05",
+      "group": "I",
+      "title": "Demo katalog i audio izvori",
+      "preset": "free",
+      "steps": [
+        "Na Homeu prebroji ilustrirane demo priče.",
+        "Otvori jednu demo priču s tekstom „Audio uskoro”."
+      ],
+      "expect": "Demo katalog dodaje 10 ilustriranih zapisa bez audioizvora, ne daje Premium pravo.",
+      "scope": "QA",
+      "state": "free",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "I06",
+      "group": "I",
+      "title": "HTML vodič čuva napredak pri ponovnom otvaranju",
+      "preset": "disabled",
+      "steps": [
+        "U ovom vodiču označi jednu stavku i dodaj kratku bilješku.",
+        "Zatvori karticu preglednika i ponovno otvori ISTU HTML datoteku na istome mjestu."
+      ],
+      "expect": "Kvačice, rezultat i bilješke vraćaju se iz lokalne pohrane preglednika; napravi JSON kopiju za sigurnost.",
+      "scope": "QA",
+      "state": "disabled",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "I07",
+      "group": "I",
+      "title": "Izvoz i uvoz sigurnosne kopije",
+      "preset": "disabled",
+      "steps": [
+        "U HTML vodiču pritisni „Preuzmi sigurnosnu kopiju (JSON)”.",
+        "Odaberi „Uvezi kopiju”, učitaj preuzeti JSON i provjeri rezultat."
+      ],
+      "expect": "Uvoz vraća označene testove i bilješke; ne mijenja podatke Flutter aplikacije.",
+      "scope": "QA",
+      "state": "disabled",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    },
+    {
+      "id": "I08",
+      "group": "I",
+      "title": "Release bez QA prava i stvarna trgovina",
+      "preset": "disabled",
+      "steps": [
+        "Nemoj ovaj slučaj ocjenjivati na trenutačnom debug buildu."
+      ],
+      "expect": "Za dokaz treba zaseban release/sandbox test. Debug simulacija nije dokaz stvarne Google Play ili Apple kupnje.",
+      "scope": "KASNIJE",
+      "state": "disabled",
+      "popup": null,
+      "checks": [],
+      "notes": ""
+    }
+  ],
+  "commit": "887fe91f5fb35b7e5045d8f46d09f80b14403354",
+  "flags": [
+    "PREMIUM_QA=true",
+    "PREMIUM_QA_LULLABY_PREMIUM=true",
+    "DEMO_CATALOG=true",
+    "PREMIUM_QA_AMBIENT_PREMIUM=true"
+  ]
+}</script>
+<header class="top">
+  <div class="brand"><div class="logo">✦</div><div><h1>Prispodobilica · Premium QA</h1><small>Interaktivni vodič · 144 scenarija · offline</small></div></div>
+  <div class="topright"><a class="btn small" href="./" style="text-decoration:none">← Sve funkcionalnosti</a><span class="save save-status" id="save-status">Automatski spremljeno</span><span class="chip" id="commit-chip">887fe91</span><button class="btn small" id="backup-quick">↓ Sigurnosna kopija</button></div>
+</header>
+<div class="layout">
+  <aside class="sidebar" aria-label="Popis testova">
+    <h2>Pronađi scenarij</h2>
+    <div class="filters"><input class="field search" id="search" type="search" placeholder="Pretraži ID, naziv, opis..." aria-label="Pretraživanje testova"><select id="group-filter" aria-label="Skupina"><option value="">Sve skupine</option></select><select id="status-filter" aria-label="Rezultat"><option value="">Svi rezultati</option><option value="NOT_RUN">Nisam testirao</option><option value="PASS">Prošlo</option><option value="PARTIAL">Djelomično</option><option value="FAIL">Nije prošlo</option><option value="BLOCKED">Blokirano</option></select></div>
+    <div id="test-list" class="testlist"></div>
+  </aside>
+  <main class="main"><div class="main-inner"><div id="dashboard"></div><div id="detail"></div><div class="footer-note">Izrađeno za QA simulaciju commita <strong>887fe91</strong>. Rezultati nisu dokaz stvarne Google Play / Apple naplate. Datoteka je samostalna i ne šalje podatke na internet.</div></div></main>
+</div>
+<div class="toast" role="status" id="toast"></div>
+<input id="file-import" type="file" accept="application/json,.json" hidden>
+<script>
+'use strict';
+const DATA=JSON.parse(document.getElementById('qa-data').textContent);
+const KEY='prispodobilica-premium-qa-887fe91-v2';
+const names={PASS:'Prošlo',PARTIAL:'Djelomično',FAIL:'Nije prošlo',NOT_RUN:'Nisam testirao',BLOCKED:'Blokirano'};
+const ids=new Set(DATA.tests.map(t=>t.id));
+let storageOK=true;
+const blank=()=>({schema:2,commit:DATA.commit,device:'Samsung Galaxy A53',started:new Date().toISOString().slice(0,10),last:'A01',records:{}});
+let db=readDb(),current=ids.has(db.last)?db.last:'A01';
+let search='',groupFilter='',statusFilter='';
+function readDb(){try{const val=localStorage.getItem(KEY);if(!val)return blank();const parsed=JSON.parse(val);if(parsed?.schema!==2||typeof parsed.records!=='object')return blank();return {...blank(),...parsed,records:Object.fromEntries(Object.entries(parsed.records||{}).filter(([k])=>ids.has(k)))}}catch(err){storageOK=false;return blank()}}
+function saveDb(){db.last=current;try{localStorage.setItem(KEY,JSON.stringify(db));document.getElementById('save-status').textContent='Automatski spremljeno';storageOK=true}catch(err){storageOK=false;document.getElementById('save-status').textContent='Pohrana nije dostupna — izvezi kopiju!';showToast('Lokalna pohrana nije dostupna. Izvezi JSON kopiju.',true)}}
+function rec(id){if(!db.records[id])db.records[id]={status:'NOT_RUN',checks:{},note:'',blocked:false,updated:null};return db.records[id]}
+function peek(id){return db.records[id]||{status:'NOT_RUN',checks:{},note:'',blocked:false,updated:null}}
+function result(id){const r=peek(id);return r.blocked&&r.status==='NOT_RUN'?'BLOCKED':r.status||'NOT_RUN'}
+function stamp(){return new Date().toLocaleString('hr-HR')}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function tById(id){return DATA.tests.find(t=>t.id===id)}
+function toastRemove(){document.getElementById('toast').classList.remove('show')}
+let toastTimer;
+function showToast(s,isError=false){const el=document.getElementById('toast');el.textContent=s;el.style.background=isError?'#9E574D':'#425B3E';el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(toastRemove,2800)}
+function totals(){const z={PASS:0,PARTIAL:0,FAIL:0,NOT_RUN:0,BLOCKED:0};DATA.tests.forEach(t=>z[result(t.id)]++);return z}
+function progressHtml(z){return `<div class="progress-wrap"><div class="p-pass" style="width:${z.PASS/144*100}%"></div><div class="p-partial" style="width:${z.PARTIAL/144*100}%"></div><div class="p-fail" style="width:${z.FAIL/144*100}%"></div><div class="p-blocked" style="width:${z.BLOCKED/144*100}%"></div></div>`}
+function fillFilters(){const s=document.getElementById('group-filter');for(const [key,[name,num]] of Object.entries(DATA.groups)){const o=document.createElement('option');o.value=key;o.textContent=`${key} — ${name} (${num})`;s.appendChild(o)}}
+function renderDashboard(){const z=totals();const finished=144-z.NOT_RUN-z.BLOCKED;let groups=Object.entries(DATA.groups).map(([k,[name,num]])=>{const arr=DATA.tests.filter(t=>t.group===k);const n=arr.filter(t=>result(t.id)!=='NOT_RUN'&&result(t.id)!=='BLOCKED').length;return `<button class="group-card" data-group="${k}"><strong>${k}</strong><span>${esc(name)}</span><small>${n} / ${num} ocijenjeno</small></button>`}).join('');document.getElementById('dashboard').innerHTML=`<div class="eyebrow">Terensko testiranje · Samsung Galaxy A53</div><h2 class="h-main">Tvoj Premium QA dnevnik</h2><p class="lead">Označavaj rezultate kako testiraš. Napredak se sprema u ovom pregledniku, a sigurnosnu kopiju možeš preuzeti nakon svakog dana.</p><div class="stats"><div class="stat passed"><strong>${z.PASS}</strong><span>Prošlo</span></div><div class="stat partial"><strong>${z.PARTIAL}</strong><span>Djelomično</span></div><div class="stat failed"><strong>${z.FAIL}</strong><span>Nije prošlo</span></div><div class="stat blocked"><strong>${z.BLOCKED}</strong><span>Blokirano</span></div><div class="stat unrun"><strong>${z.NOT_RUN}</strong><span>Nisam testirao</span></div></div>${progressHtml(z)}<div class="bunch little dim"><strong>${finished} / 144 ocijenjeno</strong><span>·</span><span>${Math.round(finished/144*100)}% obavljenog ocjenjivanja</span></div><div class="tools-row"><button class="btn gold" id="download-report">↓ Cjeloviti izvještaj (.txt)</button><button class="btn" id="download-issues">↓ Sažetak za ChatGPT (.txt)</button><button class="btn" id="copy-issues">⧉ Kopiraj sažetak</button><button class="btn" id="download-json">↓ Sigurnosna kopija (.json)</button><button class="btn" id="import-json">↑ Uvezi kopiju</button></div><div class="alert">💾 <strong>Važno za višednevni rad:</strong> lokalno spremanje ovisi o istom pregledniku i web-adresi; na drugom uređaju uvezi JSON kopiju. Na kraju svakog dana preuzmi JSON kopiju. Ne briši podatke web-preglednika.</div>${!storageOK?'<div class="alert error"><strong>Lokalna pohrana nije dostupna.</strong> Izvozi JSON nakon svake promjene; bez toga napredak se možda neće sačuvati.</div>':''}<section class="card"><h3>Skupine testova</h3><div class="groups-grid">${groups}</div></section><section class="card"><h3>Podaci o testiranju</h3><div class="bunch"><div style="flex:1;min-width:180px"><label class="meta-label" for="device">Uređaj</label><input id="device" class="field" value="${esc(db.device)}"></div><div style="flex:1;min-width:180px"><label class="meta-label" for="start-date">Datum početka</label><input id="start-date" type="date" class="field" value="${esc(db.started)}"></div></div><div class="tip">U izvještaju se uvijek navodi commit ${DATA.commit.slice(0,7)} i četiri QA zastavice. Ako aplikacija nije pokrenuta iz toga commita, to zabilježi u bilješkama.</div><div class="tools-row"><button class="btn small danger" id="reset-all">Obriši sve rezultate…</button></div></section>`}
+function renderList(){const el=document.getElementById('test-list');let html='',prev='';const needle=search.toLocaleLowerCase('hr');let count=0;for(const t of DATA.tests){if(groupFilter&&t.group!==groupFilter)continue;if(statusFilter&&result(t.id)!==statusFilter)continue;if(needle&&!`${t.id} ${t.title} ${t.expect} ${DATA.groups[t.group][0]}`.toLocaleLowerCase('hr').includes(needle))continue;if(prev!==t.group){html+=`<div class="s-group">${t.group} · ${esc(DATA.groups[t.group][0])}</div>`;prev=t.group}let rs=result(t.id);html+=`<button class="test-link ${current===t.id?'current':''}" data-id="${t.id}" title="${esc(t.title)}"><span class="tiny-dot ${rs}"></span><span class="test-code">${t.id}</span><span>${esc(t.title)}</span></button>`;count++}el.innerHTML=html||'<div class="no-results">Nema scenarija prema ovom filtru.</div>'}
+function outcome(t){return DATA.states[t.state]||DATA.states[DATA.presets[t.preset].state]}
+function popup(t,st){return DATA.popups[t.popup||st.popup||'none']||DATA.popups.none}
+function getWarningBody(st,p){if(st.warning==='Kupnja u obradi')return 'Kupnja Premiuma čeka potvrdu trgovine. Premium ostaje zaključan dok potvrda ne bude dostupna.';if(st.warning==='Problem s naplatom')return 'Trgovina je prijavila problem s naplatom. Premium nije dostupan dok se plaćanje ne riješi.';if(st.warning==='Premium uskoro treba provjeru')return DATA.popups.offlineNear.body;if(st.warning==='Potrebna je provjera Premiuma')return (st.reason==='Trgovina nedostupna')?DATA.popups.unavailable.body:DATA.popups.offlineLost.body;return p.body}
+function getWarningAction(st){if(st.warning==='Plaćanje pretplate nije uspjelo'||st.warning==='Premium više nije dostupan')return 'Riješi plaćanje';if(st.warning==='Premium uskoro treba provjeru')return 'Provjeri sada';if(st.warning==='Premium pretplata je završila'||st.warning==='Premium kupnja je opozvana')return null;return 'Provjeri pretplatu'}
+function finalPlan(t,st){return st.plan}
+function planNames(){return ['Mjesečna','Tromjesečna','Godišnja']}
+function isOwned(st,title){return st.kind==='entitled'&&st.plan.toLowerCase().includes(title.toLowerCase())}
+function expectedChecks(t,st,p){const common=[
+ ['fields','Sva početna QA polja odgovaraju navedenim vrijednostima'],
+ ['steps','Izvedeni su svi dodatni koraci ovim redoslijedom'],
+ ['popup',p.title==='Nema Premium skočnog prozora'||p.title==='Nema novog skočnog prozora'?'Nema neočekivanog skočnog prozora (osim navedenih prijelaznih poruka)':'Skočni prozor pojavljuje se u predviđenom trenutku'],
+ ['popuptext',p.title==='Nema Premium skočnog prozora'||p.title==='Nema novog skočnog prozora'?'Nema pogrešnih Premium upozorenja':'Naslov, doslovan tekst i gumbi prozora odgovaraju vodiču'],
+ ['settings','Premium kartica u Postavkama prikazuje točan plan i status'],
+ ['warning','Dodatno upozorenje u Postavkama ispravno se pojavljuje ili izostaje'],
+ ['page','Premium ekran prikazuje točan naslov, planove i dostupne radnje'],
+ ['special',t.expect],
+ ];if(t.group==='F')common.splice(6,0,['audio','Provjeren je stvarni audio rezultat (Play / zabrana / nastavak)']);if(t.group==='H')common.splice(6,0,['parent','Matematička provjera pojavljuje se samo kod osjetljive radnje']);if(t.group==='I'&&(t.id==='I06'||t.id==='I07'))return [['action','Izvedeni su svi navedeni koraci u HTML vodiču'],['result',t.expect],['storage','Rezultat je sačuvan nakon zatvaranja ili uvoza']];return common}
+function setupRows(t){const s=DATA.presets[t.preset];return [['Uključi simulaciju',s.on?'UKLJUČENO':'ISKLJUČENO'],['Vrsta pristupa',s.plan],['Status',s.status],['Stanje trgovine',s.store],['Testni datum isteka',s.expiry],['Offline test',s.offline],['Čip vremena (samo ako je offline uključen)',s.hour],['QA poslovni scenariji',t.steps.length?'Pritisnuti samo gumbe navedene u koracima':'Ne pritiskati nijedan gumb']]}
+function settingsHtml(st,p){const warning=st.warning?`<div class="ui-gap"></div><div class="preview-ui"><div style="font-weight:850;font-size:15px">⚠ ${esc(st.warning)}</div><div class="smallline" style="margin-top:7px">${esc(getWarningBody(st,p))}</div>${getWarningAction(st)?`<div style="font-size:13px;color:var(--green);margin-top:10px;font-weight:750">${esc(getWarningAction(st))}</div>`:''}</div>`:`<div class="tip">Za ovo stanje nije predviđena zasebna Premium kartica upozorenja.</div>`;return `<div class="preview-ui"><div class="hero-row"><span class="premium-icon">✦</span><div><h4>Premium</h4><div class="smallline">${esc(st.plan)}</div><div class="smallline">${esc(st.reason)}</div></div></div><p class="little" style="margin:12px 0 0">${esc(st.desc)}</p><div class="preview-btn">${esc(st.button)}</div></div>${warning}`}
+function nextPlanText(t){let confirmed=null,change=null,unconfirmed=null,renewCancelled=false;for(let s of t.steps){const x=s.toLowerCase();const plan=x.includes('yearly')?'Premium — godišnja pretplata':x.includes('quarterly')?'Premium — tromjesečna pretplata':x.includes('monthly')?'Premium — mjesečna pretplata':null;if(x.includes('zakaži ')&&plan){unconfirmed=plan;change='U obradi'}else if(x.includes('potvrdi promjenu')&&unconfirmed){confirmed=unconfirmed;unconfirmed=null;change='Potvrđeno'}else if(x.includes('neuspjela promjena')){unconfirmed=null;change='Neuspjela'}else if(x.includes('nepoznata potvrda')){unconfirmed=null;change='Nepoznata'}else if(x.includes('otkaži obnovu')){confirmed=null;renewCancelled=true}else if(x.includes('primijeni na obnovu')){confirmed=null}}if(renewCancelled)return 'Automatska obnova je otkazana (točan datum ako je postavljen).';if(confirmed){if(change==='Potvrđeno')return 'Sljedeći plan: '+confirmed+' (datum samo ako je poznat).';return 'Potvrđeni sljedeći plan: '+confirmed+'; Nova promjena: '+change+'.'}return null}
+function premiumHtml(t,st){let kind=st.kind,plans='';if(kind==='offer'||kind==='entitled'){plans=planNames().map((p,i)=>{const owned=isOwned(st,p);let selected=!owned&&kind==='offer'&&i===2;const annualChosen=t.id==='B02'&&p==='Godišnja';if(annualChosen)selected=true;return `<div class="mini-card ${owned?'owned':selected?'selected':''}"><div style="display:flex;align-items:center;justify-content:space-between"><div><h5>${esc(p)} ${owned?'★':''}</h5><small>Cijena će biti prikazana u trgovini</small>${i===2?'<small>Najpopularnije</small>':''}${owned?'<span class="mini-badge">Trenutačni plan</span>':''}</div><strong>${selected?'◉':'○'}</strong></div></div>`}).join('')};const confirmed=nextPlanText(t);const actions=(kind==='offer'||kind==='entitled')?`<div class="preview-btn">Nastavi</div><div class="smallline" style="text-align:center;margin:10px 0">Cijene i ponude prikazat će se nakon povezivanja trgovine aplikacija.</div>`:'';const foot=(kind==='offer'||kind==='entitled')?`<div style="font-size:13px;text-align:center;margin-top:10px;color:var(--green);font-weight:700">Vrati kupnje</div>`:'';const manage=kind==='entitled'?`<div style="font-size:13px;text-align:center;margin-top:9px;color:var(--green);font-weight:700">Upravljaj pretplatom</div>`:'';const resolve=(t.state==='graceIncident'||t.state==='lossIncident'||t.state==='graceTrialY')?`<div style="font-size:13px;text-align:center;margin-top:9px;color:var(--green);font-weight:700">Riješi plaćanje</div>`:'';let status=(kind==='entitled')?`<div class="smallline" style="color:var(--green);font-weight:800;margin-top:6px">${esc(st.reason)}<br>Trenutačni plan: ${esc(st.plan)}</div>`:(kind==='pending'||kind==='verification')?`<div class="smallline" style="color:var(--green);font-weight:800;margin-top:6px">${esc(st.reason)}</div>`:'';return `<div class="preview-ui"><div class="hero-row"><span class="premium-icon">✦</span><div><h4>${esc(st.page)}</h4><div class="little dim">${esc(st.pageDesc)}</div>${status}</div></div>${confirmed?`<div class="subtle" style="margin:10px 0">${esc(confirmed)}</div>`:''}<div class="ui-gap"></div>${plans}${kind==='offer'||kind==='entitled'?'<div class="smallline" style="margin:13px 0 0"><b>U Premiumu dobivaš</b><br>Priče · Uspavanke · Pozadinski zvukovi</div>':''}${actions}${foot}${manage}${resolve}${kind==='offer'?'<div class="smallline" style="text-align:center;margin-top:12px">3 dana besplatno uz svaki plan (QA prikaz)</div>':''}</div>`}
+function renderDetail(){const t=tById(current),st=outcome(t),p=popup(t,st),r=peek(t.id),isBlocked=r.blocked&&r.status==='NOT_RUN';const c=expectedChecks(t,st,p),cnt=c.filter(x=>r.checks?.[x[0]]).length;const idx=DATA.tests.findIndex(x=>x.id===t.id);let setup=setupRows(t).map(([n,v])=>`<tr><td>${esc(n)}</td><td>${esc(v)}</td></tr>`).join('');let stepList=['U aplikaciji otvori „Postavke” i dodirni „Verzija 0.1.0” sedam puta (ako QA kartica još nije otvorena).','Pritisni „Resetiraj simulaciju”.','Postavi SVA polja iz tablice, redom od vrha prema dnu.','Zaustavi priču ako test ne zahtijeva aktivnu reprodukciju.',...t.steps].map(s=>`<li>${esc(s)}</li>`).join('');let pHtml=p.buttons.length?`<div class="dialog-preview"><h4>${esc(p.title)}</h4><p>${esc(p.body)}</p>${p.checkbox?`<div class="mock-checkbox">☐ ${esc(p.checkbox)}</div>`:''}<div class="mock-actions">${p.buttons.map((b,i)=>`<span class="mock-action ${i===p.buttons.length-1&&p.buttons.length>1?'filled':''}">${esc(b)}</span>`).join('')}</div></div>`:`<div class="subtle" style="background:#EDF3E7"><strong>✓ ${esc(p.title)}</strong><div class="little">${esc(p.body)}</div></div>`;let chk=c.map(([key,val])=>`<label class="check-row"><input type="checkbox" data-check="${key}" ${r.checks?.[key]?'checked':''}><span>${esc(val)}</span></label>`).join('');let statusBtns=['PASS','PARTIAL','FAIL','NOT_RUN'].map(v=>`<button class="status-button ${r.status===v?'active '+v:''}" data-result="${v}"><span>${{PASS:'✓',PARTIAL:'◑',FAIL:'✕',NOT_RUN:'—'}[v]}</span>${names[v]}</button>`).join('');document.getElementById('detail').innerHTML=`<div class="test-head"><div><div class="eyebrow">SKUPINA ${t.group} · ${esc(DATA.groups[t.group][0])}</div><h2>${t.id} — ${esc(t.title)}</h2><p class="lead" style="margin-bottom:7px">Očekivani rezultat prema aktualnoj QA simulaciji u commitu ${DATA.commit.slice(0,7)}.</p></div><div class="bunch"><span class="tag ${esc(t.scope)}">${t.scope==='QA'?'Fizički QA':t.scope==='OGRANIČENO'?'Ograničeni QA':'Kasnije / sandbox'}</span><span class="tag ${isBlocked?'BLOCKED':r.status||'NOT_RUN'}">${names[isBlocked?'BLOCKED':r.status||'NOT_RUN']}</span></div></div><div class="test-navigation"><button class="btn small" id="prev" ${idx===0?'disabled':''}>← Prethodni</button><span class="little dim">${idx+1} / 144</span><span class="test-nav-spacer"></span><button class="btn small primary" id="next" ${idx===143?'disabled':''}>Sljedeći →</button></div>${t.scope!=='QA'?`<div class="alert"><strong>${t.scope==='KASNIJE'?'Nije dokazivo ovom debug verzijom.':'Ograničeno ovom simulacijom.'}</strong> ${esc(t.expect)} Ako nema uvjeta za pouzdan test, ostavi „Nisam testirao” i označi „Blokirano”, a ne FAIL.</div>`:''}<section class="card"><div class="section-heading"><div class="section-icon">☷</div><h3>1. Postavi točno ove vrijednosti</h3></div><p class="dim little">Ovo su <strong>početne vrijednosti nakon resetiranja</strong>. Dodatne radnje u sljedećem koraku mogu promijeniti završni status.</p><table>${setup}</table><div class="tip">Kada biraš „jučer” ili „sutra”, računaj u odnosu na dan testiranja. Ako je datum već postavljen, nakon reseta treba nestati; možeš pritisnuti i „Očisti testni istek”.</div></section><section class="card"><div class="section-heading"><div class="section-icon green">➜</div><h3>2. Izvedi korake redom</h3></div><ol class="steps">${stepList}</ol></section><section class="card"><div class="section-heading"><div class="section-icon brown">▤</div><h3>3. Očekivani skočni prozor</h3></div><div class="subtle little"><b>Kada se pojavljuje:</b> ${esc(p.when)}<br><span class="dim">Isto upozorenje ne mora se ponoviti pri svakoj navigaciji. Tijekom aktivne priče popup se može odgoditi. Kod složenog scenarija moguća su i prijelazna upozorenja iz prethodnih koraka.</span></div>${pHtml}${p.caution?`<div class="alert">${esc(p.caution)}</div>`:''}</section><section class="card"><div class="section-heading"><div class="section-icon">✦</div><h3>4. Premium kartice u Postavkama</h3></div>${settingsHtml(st,p)}<div class="tip">Ovo je shematski prikaz s približnim bojama aplikacije, a citirani tekstovi potječu iz koda.</div></section><section class="card"><div class="section-heading"><div class="section-icon green">▣</div><h3>5. Očekivani Premium ekran</h3></div>${premiumHtml(t,st)}<div class="tip">Prikaz plana i dostupnih gumba ovisi o efektivnom pravu. Nema stvarne naplate; ona nije povezana s trgovinom.</div></section><section class="card soft"><div class="section-heading"><div class="section-icon brown">◎</div><h3>6. Posebno provjeri</h3></div><div style="font-weight:700">${esc(t.expect)}</div>${t.notes?`<p class="little">${esc(t.notes)}</p>`:''}<div class="tip">Za provjeru reprodukcije koristi stvarne audio priče „Stvaranje svijeta” i „Dječak Juraj”, uspavanku „Klanjam ti se” i pozadinski zvuk „Kiša”. Demo ilustracije nemaju audio.</div></section><section class="card"><div class="section-heading"><div class="section-icon green">✓</div><h3>7. Kvačice — što je prošlo?</h3></div><div class="checks">${chk}</div><div class="completion"><div class="bunch" style="justify-content:space-between"><strong id="checks-label">Potvrđeno ${cnt} / ${c.length}</strong><span class="little">${Math.round(cnt/c.length*100)}%</span></div><div class="bar-bg"><div class="bar-progress" style="width:${cnt/c.length*100}%"></div></div></div><div class="tip">Prazna kvačica znači „nije potvrđeno”, ne automatski „FAIL”. Zabilježi što nije prošlo u opisu.</div></section><section class="card white"><div class="section-heading"><div class="section-icon">✎</div><h3>8. Ocjena i opis nalaza</h3></div><div class="status-grid">${statusBtns}</div><label class="check-row" style="margin:9px 0 14px"><input id="blocked" type="checkbox" ${r.blocked?'checked':''}><span><strong>Tehnički blokirano</strong> — slučaj nisam mogao/la izvesti ili nije dostupan u ovoj debug verziji (vodi se odvojeno od FAIL-a).</span></label><label class="meta-label" for="test-note">Opis problema ili napomena</label><textarea class="note" id="test-note" placeholder="Npr. zaključavanje je prošlo, ali tekst na kartici bio je pogrešan...">${esc(r.note||'')}</textarea><div class="little dim" style="margin:8px 0">Svaka promjena kvačice, ocjene i bilješke automatski se sprema. Zadnje uređeno: <span id="updated">${esc(r.updated||'nije uređeno')}</span>.</div><div class="tools-row"><button class="btn primary" id="copy-single">⧉ Kopiraj rezultat ovog testa</button><button class="btn" id="go-next">Spremi i otvori sljedeći →</button></div></section>`}
+function selectTest(id){if(!ids.has(id))return;current=id;saveDb();renderDetail();renderList();window.scrollTo({top:0,behavior:'smooth'})}
+function rerender(){renderDashboard();renderDetail();renderList()}
+function update(id,what,val){const r=rec(id);if(what==='note')r.note=String(val).slice(0,15000);if(what==='status'){r.status=val;r.blocked=false}if(what==='blocked'){r.blocked=!!val;if(val)r.status='NOT_RUN'}if(what==='check'){const [k,v]=val;r.checks[k]=!!v}r.updated=stamp();saveDb();if(what==='note'){const e=document.getElementById('updated');if(e)e.textContent=r.updated}else rerender()}
+function fileName(prefix,extension){const d=new Date().toISOString().slice(0,10);return `${prefix}_${d}.${extension}`}
+function download(name,contents,type){const blob=new Blob([type==='application/json'?'':'\ufeff',contents],{type:type+';charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+function backup(){download(fileName('prispodobilica-premium-qa-sigurnosna-kopija','json'),JSON.stringify(db,null,2),'application/json');showToast('JSON sigurnosna kopija preuzeta.')}
+function checkReport(t,r){const c=expectedChecks(t,outcome(t),popup(t,outcome(t)));const pass=c.filter(([key])=>r.checks?.[key]).map(([,x])=>'  ✓ '+x);const not=c.filter(([key])=>!r.checks?.[key]).map(([,x])=>'  ☐ '+x);return `PROŠLO (${pass.length}/${c.length}):\n${pass.join('\n')||'  —'}\nNEOZNAČENO / NIJE POTVRĐENO:\n${not.join('\n')||'  —'}`}
+function headerReport(){const z=totals();return `PRISPODOBILICA — PREMIUM QA\nUređaj: ${db.device}\nCommit: ${DATA.commit}\nDatum početka: ${db.started}\nDatum izvještaja: ${stamp()}\nQA zastavice: ${DATA.flags.join('; ')}\nUkupno scenarija: 144\nProšlo: ${z.PASS}\nDjelomično: ${z.PARTIAL}\nNije prošlo: ${z.FAIL}\nBlokirano: ${z.BLOCKED}\nNisam testirao: ${z.NOT_RUN}\n\nNapomena: QA simulacija, nije produkcijski dokaz Google Play / Apple naplate.\n`}
+function singleReport(id){const t=tById(id),r=peek(id),st=outcome(t),p=popup(t,st);const setup=setupRows(t).map(([k,v])=>'  '+k+': '+v).join('\n');const actions=t.steps.map((v,i)=>'  '+(i+1)+'. '+v).join('\n')||'  Nema dodatnih radnji nakon postavljanja polja.';return `${t.id} — ${t.title}\nREZULTAT: ${names[result(id)].toUpperCase()}\n\nPOČETNE QA VRIJEDNOSTI:\n${setup}\nDODATNI KORACI:\n${actions}\n\nOČEKIVANI STATUS: ${st.reason}\nPOPUP: ${p.title}\nOČEKIVANO: ${t.expect}\n\n${checkReport(t,r)}\nNALAZ:\n${r.note||'Nije upisan'}\nZadnje uređeno: ${r.updated||'nije uređeno'}`}
+function fullReport(){return headerReport()+'\n'+DATA.tests.map(t=>singleReport(t.id)).join('\n\n'+'-'.repeat(64)+'\n\n')+'\n'}
+function issuesReport(){const focus=DATA.tests.filter(t=>['FAIL','PARTIAL','BLOCKED'].includes(result(t.id)));const pass=DATA.tests.filter(t=>result(t.id)==='PASS').map(t=>t.id);const never=DATA.tests.filter(t=>result(t.id)==='NOT_RUN').map(t=>t.id);return headerReport()+`\nSAŽETAK ZA CHATGPT\n\nPASS ID-evi: ${pass.join(', ')||'nema'}\nNOT RUN ID-evi: ${never.join(', ')||'nema'}\n\nPROBLEMI / DJELOMIČNI / BLOKIRANI (${focus.length}):\n\n`+(focus.length?focus.map(t=>singleReport(t.id)).join('\n\n'+'-'.repeat(46)+'\n\n'):'Nema prijavljenih problema.')+'\n'}
+async function copyText(s){try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(s);showToast('Kopirano u međuspremnik.');return}}catch{}const ta=document.createElement('textarea');ta.value=s;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{if(document.execCommand('copy')){showToast('Kopirano u međuspremnik.');ta.remove();return}}catch{}ta.remove();download(fileName('prispodobilica-qa-izvjestaj','txt'),s,'text/plain');showToast('Kopiranje nije dostupno; preuzet je .txt izvještaj.')}
+function importFile(file){if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const p=JSON.parse(String(reader.result).replace(/^\uFEFF/,''));if(p?.schema!==2||typeof p.records!=='object'||p.commit!==DATA.commit)throw Error('Pogrešna ili nekompatibilna sigurnosna kopija.');if(!confirm('Uvesti ovu kopiju? Trenutačni rezultati u pregledniku bit će zamijenjeni.'))return;const n=blank();n.device=String(p.device||n.device).slice(0,150);n.started=String(p.started||n.started).slice(0,10);n.last=ids.has(p.last)?p.last:'A01';for(const [id,r] of Object.entries(p.records)){if(!ids.has(id)||!r||typeof r!=='object')continue;const status=['PASS','PARTIAL','FAIL','NOT_RUN'].includes(r.status)?r.status:'NOT_RUN';const allow=new Set(expectedChecks(tById(id),outcome(tById(id)),popup(tById(id),outcome(tById(id)))).map(x=>x[0]));const checks=Object.fromEntries(Object.entries(r.checks||{}).filter(([k])=>allow.has(k)).map(([k,v])=>[k,!!v]));n.records[id]={status,checks,note:String(r.note||'').slice(0,15000),blocked:!!r.blocked,updated:String(r.updated||'').slice(0,80)}}db=n;current=n.last;saveDb();rerender();showToast('Sigurnosna kopija uspješno uvezena.')}catch(err){showToast('Pogreška pri uvozu: '+err.message,true)}};reader.readAsText(file,'utf-8')}
+function confirmReset(){const choice=prompt('Ovo briše SVE ocjene, kvačice i bilješke pohranjene u pregledniku. Za potvrdu upiši OBRIŠI. Prije toga izvezi JSON kopiju.');if(choice!=='OBRIŠI')return;db=blank();current='A01';saveDb();rerender();showToast('Lokalni rezultati su obrisani.')}
+fillFilters();rerender();
+document.getElementById('commit-chip').textContent=DATA.commit.slice(0,7);
+document.getElementById('search').addEventListener('input',e=>{search=e.target.value;renderList()});document.getElementById('group-filter').addEventListener('change',e=>{groupFilter=e.target.value;renderList()});document.getElementById('status-filter').addEventListener('change',e=>{statusFilter=e.target.value;renderList()});document.getElementById('backup-quick').addEventListener('click',backup);
+document.getElementById('test-list').addEventListener('click',e=>{const b=e.target.closest('[data-id]');if(b)selectTest(b.dataset.id)});
+document.getElementById('dashboard').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.group){groupFilter=b.dataset.group;document.getElementById('group-filter').value=groupFilter;renderList();selectTest(DATA.tests.find(t=>t.group===groupFilter).id)}switch(b.id){case'download-report':download(fileName('prispodobilica-premium-qa-cjelovito','txt'),fullReport(),'text/plain');break;case'download-issues':download(fileName('prispodobilica-premium-qa-za-chatgpt','txt'),issuesReport(),'text/plain');break;case'copy-issues':copyText(issuesReport());break;case'download-json':backup();break;case'import-json':document.getElementById('file-import').click();break;case'reset-all':confirmReset();break;}});
+document.getElementById('dashboard').addEventListener('change',e=>{if(e.target.id==='device'){db.device=e.target.value.slice(0,150);saveDb()}else if(e.target.id==='start-date'){db.started=e.target.value;saveDb()}});
+document.getElementById('file-import').addEventListener('change',e=>{importFile(e.target.files[0]);e.target.value=''});
+document.getElementById('detail').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.result){update(current,'status',b.dataset.result);return}switch(b.id){case'prev':{const i=DATA.tests.findIndex(t=>t.id===current);if(i>0)selectTest(DATA.tests[i-1].id);break}case'next':case'go-next':{const i=DATA.tests.findIndex(t=>t.id===current);if(i<143)selectTest(DATA.tests[i+1].id);break}case'copy-single':copyText(headerReport()+'\n'+singleReport(current));break}});
+document.getElementById('detail').addEventListener('change',e=>{if(e.target.dataset.check){update(current,'check',[e.target.dataset.check,e.target.checked])}else if(e.target.id==='blocked'){update(current,'blocked',e.target.checked)}});
+document.getElementById('detail').addEventListener('input',e=>{if(e.target.id==='test-note')update(current,'note',e.target.value)});
+</script>
+</body>
+</html>
